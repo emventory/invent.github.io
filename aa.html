@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+    function getParameters(){
+
+
+        var m = JSON.parse(localStorage.getItem("CART"));
+        var f = 0;
+            m.forEach(function(key){
+                f++;
+                //window.open('aa.html?numberOfUnits='+key.numberOfUnits+'&product_id='+key.product_id, "_self");
+                console.log(key.numberOfUnits +' '+ key.product_cat +' '+ key.product_name +' '+ key.product_id);
+                document.getElementById("jj").innerHTML += `<div class="mb-4">
+        <label class="form-label text-muted small mb-1">Company Phone</label>
+        <div class="input-group input-group-lg bg-white shadow-sm rounded overflow-hiddem">
+           <span class="input-group-text bg-white"><i class="bi bi-phone text-muted"></i></span>
+           <input type="text" class="form-control" id="product_id" value = '${key.product_name}' required>
+        </div>
+     </div>`;
+            })
+            console.log(f);
+        
+        // const queryString = window.location.search;
+        // const urlParams = new URLSearchParams(queryString);
+
+        // const product_id = urlParams.get('product_id');
+        // const numberOfUnits = urlParams.get('numberOfUnits');
+
+        
+        //alert(id);
+        }
+    
+     </script>
+</head>
+<body onLoad="getParameters();">
+
+    <div id="jj"></div>
+
+    <button class="badge bg-success"  role="button"><i class="bi bi-trash"></i> Complete Order</button>
+
+    <script src="js/aa.js" ></script>
+</body>
+</html>

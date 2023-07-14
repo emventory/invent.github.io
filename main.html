@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content>
+<meta name="author" content>
+<link rel="icon" type="image/png" href="img/brand.png">
+<title>eMVentory - Sale and Inventory Manager</title>
+      
+      <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+      
+      <link href="vendor/icons/icofont.min.css" rel="stylesheet" type="text/css">
+      
+      <link rel="stylesheet" href="font/bootstrap-icons.css">
+      
+      <link rel="stylesheet" type="text/css" href="vendor/slick/slick.min.css" />
+      <link rel="stylesheet" type="text/css" href="vendor/slick/slick-theme.min.css" />
+      
+      <link href="css/style.css" rel="stylesheet">
+      
+      <link href="vendor/sidebar/demo.css" rel="stylesheet">
+      <style>
+         canvas {
+           border:1px none black;
+           height:500px;
+           width: 100%;
+         }
+         </style>
+      <script>
+         
+             if(sessionStorage.getItem("key")  == null){
+               alert("Access Denied! Please Login");
+               window.open("login.html", "_self");
+             }
+             
+             function logout(){
+               sessionStorage.clear();
+               localStorage.clear();
+               window.open("login.html", "_self");
+            }
+            
+     </script>
+
+<script>
+   // function hideDiv(){
+
+   //   // id="nav_ul"
+   //    var nav_ul = document.getElementById('nav_ul');
+   //    var divTwo = document.getElementById('firstDiv');
+   //    divTwo.remove();
+   //    alert()
+   // }
+
+ </script>
+
+ 
+                      
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+   </head>
+   <body class="bg-light" >
+      <div class="p-3 shadow-sm bg-warning danger-nav osahan-home-header">
+         <div class="font-weight-normal mb-0 d-flex align-items-center">
+            <h6 class="fw-normal mb-0 text-dark d-flex align-items-center">
+               <a class="text-dark me-3 fs-4" href="main.html"><i class="bi bi-house"></i></a>
+               Dashboard
+            </h6>
+            <div class="ms-auto d-flex align-items-center">
+               <a href="signin.html" class="me-3 text-dark fs-5"><i class="bi bi-person-circle"></i></a>
+               <a href="bag.html" class="me-3 text-dark fs-5"><i class="bi bi-basket"></i></a>
+               <a class="toggle osahan-toggle fs-4 text-dark ms-auto" href="#"><i class="bi bi-list"></i></a>
+            </div>
+         </div>
+      </div>
+      <div class="osahan-giftcard p-3">
+         
+         
+            <div class="osahan-gift d-flex gap-3 align-items-center bg-white shadow-sm rounded mb-3 overflow-hidden p-3">
+              
+               <div>
+                  <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                      <button class="nav-link active" id="tsa-today-tab" data-bs-toggle="pill" data-bs-target="#tsa-today" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Today</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <button class="nav-link " id="tsa-week-tab" data-bs-toggle="pill" data-bs-target="#tsa-week" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Week</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <button class="nav-link" id="tsa-month-tab" data-bs-toggle="pill" data-bs-target="#tsa-month" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Month</button>
+                    </li>
+                  </ul>
+                  <div class="tab-content" id="pills-tabContent">
+                  
+                    <div class="tab-pane fade show active" id="tsa-today" role="tabpanel" aria-labelledby="tsa-today-tab">
+                      <div>
+                       
+                        <canvas id="myChart" ></canvas>
+                      
+                       <span class="text-dark-50 small">TOTAL SALES AMOUNT</span>
+                      </div>
+                    </div>
+                    
+                    <div class="tab-pane fade" id="tsa-week" role="tabpanel" aria-labelledby="tsa-week-tab">
+                      <div>
+                       <h6 class="mb-0 fw-bold text-success l-hght-18">Earn 20%</h6>
+                       <span class="text-dark-50 small">TOTAL SALES AMOUNT</span>
+                      </div>
+                    </div>
+                    
+                    <div class="tab-pane fade" id="tsa-month" role="tabpanel" aria-labelledby="tsa-month-tab">
+                      <div>
+                       <h6 class="mb-0 fw-bold text-success l-hght-18">Earn 20%</h6>
+                       <span class="text-dark-50 small">TOTAL SALES AMOUNT</span>
+                      </div>
+                    </div>
+                    
+                  </div>
+                  
+               </div>
+               
+            </div>
+            
+            
+            
+            <div class="osahan-gift d-flex gap-3 align-items-center bg-white shadow-sm rounded mb-3 overflow-hidden p-3">
+              
+               <div>
+                  <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                      <button class="nav-link active" id="tpa-today-tab" data-bs-toggle="pill" data-bs-target="#tpa-today" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Today</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <button class="nav-link " id="tpa-week-tab" data-bs-toggle="pill" data-bs-target="#tpa-week" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Week</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <button class="nav-link" id="tpa-month-tab" data-bs-toggle="pill" data-bs-target="#tpa-month" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Month</button>
+                    </li>
+                  </ul>
+                  <div class="tab-content" id="pills-tabContent">
+                  
+                    <div class="tab-pane fade show active" id="tpa-today" role="tabpanel" aria-labelledby="tpa-today-tab">
+                      <div>
+                       <h6 class="mb-0 fw-bold text-success l-hght-18">Earn 20%</h6>
+                       <span class="text-dark-50 small">TOTAL PROFIT AMOUNT</span>
+                      </div>
+                    </div>
+                    
+                    <div class="tab-pane fade" id="tpa-week" role="tabpanel" aria-labelledby="tpa-week-tab">
+                      <div>
+                       <h6 class="mb-0 fw-bold text-success l-hght-18">Earn 20%</h6>
+                       <span class="text-dark-50 small">TOTAL PROFIT AMOUNT</span>
+                      </div>
+                    </div>
+                    
+                    <div class="tab-pane fade" id="tpa-month" role="tabpanel" aria-labelledby="tpa-month-tab">
+                      <div>
+                       <h6 class="mb-0 fw-bold text-success l-hght-18">Earn 20%</h6>
+                       <span class="text-dark-50 small">TOTAL PROFIT AMOUNT</span>
+                      </div>
+                    </div>
+                    
+                  </div>
+                  
+               </div>
+               
+            </div>
+            
+        	<div class="osahan-gift d-flex gap-3 align-items-center bg-white shadow-sm rounded mb-3 overflow-hidden p-3">
+              
+               <div>
+                  <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                      <button class="nav-link active" id="ns-today-tab" data-bs-toggle="pill" data-bs-target="#ns-today" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Today</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <button class="nav-link " id="ns-week-tab" data-bs-toggle="pill" data-bs-target="#ns-week" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Week</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <button class="nav-link" id="ns-month-tab" data-bs-toggle="pill" data-bs-target="#ns-month" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Month</button>
+                    </li>
+                  </ul>
+                  <div class="tab-content" id="pills-tabContent">
+                  
+                    <div class="tab-pane fade show active" id="ns-today" role="tabpanel" aria-labelledby="ns-today-tab">
+                      <div>
+                       <h6 class="mb-0 fw-bold text-success l-hght-18">Earn 20%</h6>
+                       <span class="text-dark-50 small">NUMBER OF SALES</span>
+                      </div>
+                    </div>
+                    
+                    <div class="tab-pane fade" id="ns-week" role="tabpanel" aria-labelledby="ns-week-tab">
+                      <div>
+                       <h6 class="mb-0 fw-bold text-success l-hght-18">Earn 20%</h6>
+                       <span class="text-dark-50 small">NUMBER OF SALES</span>
+                      </div>
+                    </div>
+                    
+                    <div class="tab-pane fade" id="ns-month" role="tabpanel" aria-labelledby="ns-month-tab">
+                      <div>
+                       <h6 class="mb-0 fw-bold text-success l-hght-18">Earn 20%</h6>
+                       <span class="text-dark-50 small">NUMBER OF SALES</span>
+                      </div>
+                    </div>
+                    
+                  </div>
+                  
+               </div>
+               
+            </div>
+         
+      </div>
+      
+      
+      
+      
+      <div class="osahan-listing">
+         <div class="osahan-listing p-0 m-0 row border-top" id="osahan_listing">
+            <div class="p-3 border-bottom w-100" id="bobo">
+               <h6 class="m-0 fw-bold d-flex align-items-center"><i class="icofont-sale-discount fs-5 me-2"></i>Items In Stock</h6>
+            </div>
+         </div>
+      </div>
+      
+      
+      <div class="shadow-sm osahan-footer p-3">
+         <div class="row m-0 footer-menu overflow-hiddem bg-black rounded shadow links">
+            <div class="col-3 p-0 text-center">
+               <a class="p-2 d-inline-block text-warning w-100" href="main.html">
+                  <span><i class="bi bi-house h4"></i></span>
+                  <p class="m-0 small">HOME</p>
+               </a>
+            </div>
+            <div class="col-3 p-0 text-center">
+               <a class="p-2 d-inline-block text-white w-100" href="bag.html">
+                  <span><i class="bi bi-basket h4"></i></span>
+                  <p class="m-0 small">BAG</p>
+               </a>
+            </div>
+            <div class="col-3 p-0 text-center">
+               <a class="p-2 d-inline-block text-white w-100" href="gift-card.html">
+                  <span><i class="bi bi-gift h4"></i></span>
+                  <p class="m-0 small">OFFERS</p>
+               </a>
+            </div>
+            <div class="col-3 p-0 text-center">
+               <a class="p-2 d-inline-block text-white w-100" href="my-order.html">
+                  <span><i class="bi bi-person h4"></i></span>
+                  <p class="m-0 small">ACCOUNT</p>
+               </a>
+            </div>
+         </div>
+      </div>
+
+      
+      <nav id="main-nav">
+         <ul>
+            <li>
+               <a href="#" class="bg-success sidebar-user d-flex align-items-center py-4 px-3 border-0 mb-0">
+                  <img src="img/profile.png" class="img-fluid me-3">
+                  <div class="text-white">
+                     <h6 class="mb-0">eMVentory</h6>
+                     <small>emcodinstech@gmail.com</small><br>
+                     <span class="f-10 text-white-50">Version 1.00</span>    
+                  </div>
+               </a>
+            </li>
+            <li>
+               <a href="sales.html"><i class="bi bi-bar-chart-line me-2"></i> Sales</a>
+            </li>
+            <li>
+               <a href="stock.html"><i class="bi bi-file-break me-2"></i> Stock Inventory</a>
+            </li>
+            <li>
+               <a href="transactions.html"><i class="bi bi-ui-checks-grid me-2"></i> Transactions</a>
+            </li>
+            <li>
+               <a href="salesreps.html"><i class="bi bi-person-lines-fill me-2"></i> Sales Reps</a>
+            </li>
+            <li><a href="manage.html"><i class="bi bi-person-bounding-box me-2"></i> Manage</a></li>
+            <li><a href="settings.html"><i class="bi bi-gear me-2"></i> Settings</a></li>
+            <li><a href="#" onClick="logout()"><i class="bi bi-power me-2"></i> Sign Out</a></li>
+         
+         </ul>
+
+      
+         <ul class="bottom-nav">
+            <li class="email">
+               <a class="text-success nav-item text-center" href="home.html" tabindex="0" role="menuitem">
+                  <p class="h5 m-0"><i class="icofont-ui-home text-success"></i></p>
+                  Home
+               </a>
+            </li>
+            <li class="github">
+               <a href="gift-card.html" class="nav-item text-center" tabindex="0" role="menuitem">
+                  <p class="h5 m-0"><i class="icofont-sale-discount"></i></p>
+                  Offer
+               </a>
+            </li>
+            <li class="ko-fi">
+               <a href="support.html" class="nav-item text-center" tabindex="0" role="menuitem">
+                  <p class="h5 m-0"><i class="icofont-support-faq"></i></p>
+                  Help
+               </a>
+            </li>
+         </ul>
+      </nav>
+      
+   
+      
+      <script src="vendor/jquery/jquery.min.js"></script>
+      <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+      
+      <script type="text/javascript" src="vendor/slick/slick.min.js"></script>
+      
+      <script type="text/javascript" src="vendor/sidebar/hc-offcanvas-nav.js"></script>
+      
+      <script src="js/custom.js"></script>
+      
+      <script src="js/main.js" type="module"></script>
+
+      <script>
+         const ctx = document.getElementById('myChart');
+       
+         new Chart(ctx, {
+           type: 'bar',
+           data: {
+             labels: ['Hero', 'Star', 'Trophy', 'Gulder', 'Grand Malt', 'Beta Malt', 'Castle Stout', 'Tiger', 'Four Cousine', 'Flying Fish', '1960', 'Origin Bitters'],
+             datasets: [{
+               label: '# of Sales',
+               data: [12, 19, 10, 26, 17, 27, 55, 21, 16, 25, 15, 19],
+               borderWidth: 1,
+               borderColor: '#6e8491',
+               backgroundColor: '#6e8491',
+             }]
+           },
+           options: {
+             scales: {
+               y: {
+                 beginAtZero: true
+               }
+             }
+           }
+         });
+       </script>
+      
+   <script src="../../cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="11cf11053107a30d5cb0c43e-|49" defer></script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/v2b4487d741ca48dcbadcaf954e159fc61680799950996" integrity="sha512-D/jdE0CypeVxFadTejKGTzmwyV10c1pxZk/AqjJuZbaJwGMyNHY3q/mTPWqMUnFACfCTunhZUVcd4cV78dK1pQ==" data-cf-beacon='{"rayId":"7ba47d03bf8dfa40","version":"2023.3.0","r":1,"b":1,"token":"dd471ab1978346bbb991feaa79e6ce5c","si":100}' crossorigin="anonymous"></script>
+   
+</body>
+
+</html>
