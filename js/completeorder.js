@@ -243,12 +243,16 @@ document.getElementById('discount').addEventListener('click', (e)=>{
   
   if(discountValue == ''){
     document.getElementById("cumAmount").value = grandTotal.toFixed(2);
+    document.getElementById('amtTendered').value = '';
+    document.getElementById('dueChange').value = '';
   }
   else if(discountValue != ''){
 
     console.log(discountValue);
     var gTotalDiscount = Number(grandTotal) - discountValue;
     document.getElementById("cumAmount").value = gTotalDiscount.toFixed(2);
+    document.getElementById('amtTendered').value = '';
+    document.getElementById('dueChange').value = '';
 
     //document.getElementById('dueChange').value = dueCV.toFixed(2);
   }
@@ -265,12 +269,16 @@ document.getElementById('discount').addEventListener('keyup', (e)=>{
   
   if(discountValue == ''){
     document.getElementById("cumAmount").value = grandTotal.toFixed(2);
+    document.getElementById('amtTendered').value = '';
+    document.getElementById('dueChange').value = '';
   }
   else if(discountValue != ''){
 
     console.log(discountValue);
     var gTotalDiscount = Number(grandTotal) - discountValue;
     document.getElementById("cumAmount").value = gTotalDiscount.toFixed(2);
+    document.getElementById('amtTendered').value = '';
+    document.getElementById('dueChange').value = '';
 
     //document.getElementById('dueChange').value = dueCV.toFixed(2);
   }
@@ -318,6 +326,7 @@ function selectPaymentType() {
   document.getElementById('amtTendered').addEventListener('input', (e)=>{
 
     var amtTendered = document.getElementById('amtTendered').value; 
+    var grandTotalCum = Number(document.getElementById('cumAmount').value); 
 
     if(amtTendered == ''){
       document.getElementById('amtTError').innerHTML = "Amount Tendered (<small>&#8358;</small>)";
@@ -325,15 +334,15 @@ function selectPaymentType() {
 
     else{
 
-    if(amtTendered < grandTotal){
+    if(amtTendered < grandTotalCum){
       
       document.getElementById('amtTError').innerHTML = "<small class = 'font-weight-normal text-danger small l-hght-18'>Incomplete Amount</small>";
       document.getElementById('dueChange').value = "0.00";
     }
 
-    else if(amtTendered >= grandTotal){
+    else if(amtTendered >= grandTotalCum){
 
-      var dueCV = amtTendered - grandTotal;
+      var dueCV = amtTendered - grandTotalCum;
       document.getElementById('amtTError').innerHTML = "Amount Tendered (<small>&#8358;</small>)";
       document.getElementById('dueChange').value = dueCV.toFixed(2);
     }
