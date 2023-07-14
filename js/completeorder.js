@@ -188,50 +188,50 @@ document.getElementById('selectpaymenttype').addEventListener('change', function
 
 
 
-////// Start  VAT//////////////
-document.getElementById('vat').addEventListener('click', (e)=>{
+// ////// Start  VAT//////////////
+// document.getElementById('vat').addEventListener('click', (e)=>{
 
-  var vatValue = Number(document.getElementById("vat").value);
+//   var vatValue = Number(document.getElementById("vat").value);
   
-  if(vatValue == ''){
-    document.getElementById("cumAmount").value = grandTotal.toFixed(2);
-  }
-  else if(vatValue != ''){
+//   if(vatValue == ''){
+//     document.getElementById("cumAmount").value = grandTotal.toFixed(2);
+//   }
+//   else if(vatValue != ''){
 
-    console.log(vatValue);
-    var gTotalVat = Number(grandTotal) + vatValue;
-    document.getElementById("cumAmount").value = gTotalVat.toFixed(2);
+//     console.log(vatValue);
+//     var gTotalVat = Number(grandTotal) + vatValue;
+//     document.getElementById("cumAmount").value = gTotalVat.toFixed(2);
 
-    //document.getElementById('dueChange').value = dueCV.toFixed(2);
-  }
-//console.log(gTotalVat);
-//document.getElementById("cumAmount").value = "";
-  //document.getElementById("cumAmount").value = gTotalVat;
+//     //document.getElementById('dueChange').value = dueCV.toFixed(2);
+//   }
+// //console.log(gTotalVat);
+// //document.getElementById("cumAmount").value = "";
+//   //document.getElementById("cumAmount").value = gTotalVat;
 
-});
+// });
 
-document.getElementById('vat').addEventListener('keyup', (e)=>{
+// document.getElementById('vat').addEventListener('keyup', (e)=>{
 
-  var vatValue = Number(document.getElementById("vat").value);
+//   var vatValue = Number(document.getElementById("vat").value);
   
-  if(vatValue == ''){
-    document.getElementById("cumAmount").value = grandTotal.toFixed(2);
-  }
-  else if(vatValue != ''){
+//   if(vatValue == ''){
+//     document.getElementById("cumAmount").value = grandTotal.toFixed(2);
+//   }
+//   else if(vatValue != ''){
 
-    console.log(vatValue);
-    var gTotalVat = Number(grandTotal) + vatValue;
-    document.getElementById("cumAmount").value = gTotalVat.toFixed(2);
+//     console.log(vatValue);
+//     var gTotalVat = Number(grandTotal) + vatValue;
+//     document.getElementById("cumAmount").value = gTotalVat.toFixed(2);
 
-    //document.getElementById('dueChange').value = dueCV.toFixed(2);
-  }
-//console.log(gTotalVat);
-//document.getElementById("cumAmount").value = "";
-  //document.getElementById("cumAmount").value = gTotalVat;
+//     //document.getElementById('dueChange').value = dueCV.toFixed(2);
+//   }
+// //console.log(gTotalVat);
+// //document.getElementById("cumAmount").value = "";
+//   //document.getElementById("cumAmount").value = gTotalVat;
 
-});
+// });
 
-////// End  VAT//////////////
+// ////// End  VAT//////////////
 
 
 
