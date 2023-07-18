@@ -67,6 +67,7 @@
             var value = childSnapshot.val();
 
             sessionStorage.setItem("key", loginkey);
+            //sessionStorage.setItem("userid", loginkey);
 
             window.open("main.html", "_self");
 
