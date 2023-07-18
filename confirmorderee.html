@@ -1,0 +1,97 @@
+<script>
+
+      // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+  import { getDatabase, set, get, ref ,query, child, onValue, limitToFirst, orderByChild,equalTo } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+  //export {allStorage};
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyCobTrhlsjzQ1KGSeVoN-j8wM3S7uy4ie0",
+    authDomain: "emventory-c2455.firebaseapp.com",
+	  databaseURL: "https://emventory-c2455-default-rtdb.firebaseio.com/",
+    projectId: "emventory-c2455",
+    storageBucket: "emventory-c2455.appspot.com",
+    messagingSenderId: "956457180798",
+    appId: "1:956457180798:web:0eb938d68c9c4bd467822f"
+  };
+  
+  //var firebase = initializeApp(firebaseConfig);
+  //console.log(firebase);
+
+  const app = initializeApp(firebaseConfig);
+  console.log(app);
+  // Get a reference to the database service
+  const db = getDatabase();
+  var stocks = [];
+
+//   //const productsEl = document.querySelector(".products");
+//   const cartItemsEl = document.querySelector(".cartitems");
+//   const subtotalButtomEl = document.querySelector(".subtotalButtom");
+//   const subtotalTopEl = document.querySelector(".subtotalTop");
+//   const totalInBasketEl = document.querySelector(".totalInBasket");
+//   const clearAndCheckOutEl = document.querySelector(".clearAndCheckOut");
+  
+
+
+  function getAllStock(){
+
+      var status = 1;
+      const que = query(ref(db,'stock'),orderByChild('status'),equalTo(status));
+
+      get(que).then((snapshot) => {
+        if (snapshot.exists()) {
+
+          
+
+          snapshot.forEach(function (childSnapshot) {
+
+            stocks.push(childSnapshot.val());
+
+        });
+        console.log(stocks);
+        addStockItemsForDisplay(stocks);
+
+        //console.log(snapshot.val().name);
+        } else {
+          alert("Error: No Item(s) already added to the inventory");
+        }
+      }).catch((error) => {
+        console.error(error);
+      });
+	
+							
+}
+
+window.onload = getAllStock();
+
+function  addStockItemsForDisplay(stocks){
+  stocks.forEach(element => {
+
+    sendToDisplay(element.product_name, element.product_brand, element.product_cat, 
+      element.stock_qty, element.reorder_value, element.product_id, element.product_company, 
+      element.stock_value_in_hand, element.unit_price);
+
+  });
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+var grandTotal = 0;
+let subTotal;
+var m = JSON.parse(localStorage.getItem("CART"));
+
+m.forEach(function(key){
+
+    console.log(key.numberOfUnits +' '+ key.product_cat +' '+ key.product_name +' '+ key.product_id);
+    subTotal = key.unit_price*key.numberOfUnits;
+
+    grandTotal = grandTotal += subTotal;
+    //document.getElementById("cumAmount").value = grandTotal.toFixed(2);
+    console.log(subTotal);
+})
+console.log(grandTotal);
+
+</script>

@@ -22,6 +22,7 @@
       <link href="css/style.css" rel="stylesheet">
       
       <link href="vendor/sidebar/demo.css" rel="stylesheet">
+      <script src="js/md5.js" type="text/javascript"></script>
 
       <script type="text/javascript"> 
 
@@ -102,7 +103,7 @@ function getCheckOuts(){
                      <div class="p-4">
                         <form class="row g-3 overflow-auto">
                            <div class="mb-4">
-                              <label class="form-label text-muted small mb-1">Select Sales Rep</label>
+                              <label class="form-label text-muted small mb-1" id="salesreplabel">Select Sales Rep</label>
                               <div class="input-group input-group-lg bg-white shadow-sm rounded overflow-hiddem">
                                  <span class="input-group-text bg-white"><i class="bi bi-person-lines-fill text-muted"></i></span>
                                  <select name="select" id="selectsalesrep" class="form-select" required>
@@ -122,7 +123,7 @@ function getCheckOuts(){
                               </div>
                             </div>
                             <div class="mb-4">
-                              <label class="form-label text-muted small mb-1">Payment Type</label>
+                              <label class="form-label text-muted small mb-1" id="paymenttypelabel">Payment Type</label>
                               <div class="input-group input-group-lg bg-white shadow-sm rounded overflow-hiddem">
                                  <span class="input-group-text bg-white"><i class="bi bi-signpost-split text-muted"></i></span>
                                  <select name="select" id="selectpaymenttype" class="form-select" required >
@@ -141,34 +142,32 @@ function getCheckOuts(){
                                  <input type="text" class="form-control" id="cumAmount" placeholder="Cumulative Amount" readonly>
                               </div>
                            </div>
-                        <div class="row" id="displayPaymentDetails">
-                            
-                        </div>
-                            <div class="mb-4">
-                              <label class="form-label text-muted small mb-1">Supplied By</label>
-                              <div class="input-group input-group-lg bg-white shadow-sm rounded overflow-hiddem">
-                                 <span class="input-group-text bg-white"><i class="bi bi-building text-muted"></i></span>
-                                 <select name="select" id="selectcompany" class="form-select" required>
-                                    <option value="">Company</option>
-                                  </select>
-                              </div>
-                           </div>
-               
+                        <div class="row" id="displayPaymentDetails"></div>      
 
-               
-                           <div class="mb-4">
-                              <label class="form-label text-muted small mb-1">Product Description</label>
-                              <div class="input-group input-group-lg bg-white shadow-sm rounded overflow-hiddem">
-                                 <span class="input-group-text bg-white"><i class="bi bi-body-text text-muted"></i></span>
-                                 <textarea class="form-control" id="productdescr" rows="3" required></textarea>
-                              </div>
-                           </div>
                         </form>
                      </div>
                      
                      <div class="osahan-footer p-3">
-                        <button class="btn btn-success btn-lg w-100 shadow" id="saveButton" onClick="return confirm('Do you really want to continue?');">SAVE</button>
-                     </div>
+                        <div>
+                           <div class="gift-card">
+                              <button class="btn btn-primary btn-md" id="confirmorder">Confirm Order <i class="bi bi-arrow-right-square text-white"></i></button>
+                           
+                              &nbsp;&nbsp;
+                              <button class=" btn btn-danger btn-md" onclick="(function () { 
+                                 
+                                 if (confirm('Do You Really Want To Clear This?')) {
+                                    localStorage.clear();
+                                    cart = [];
+                                    window.open('newtransaction.html', '_self');
+                                 } else {
+                                    return false;
+                                  }
+                                 
+                                 
+                           
+                           })()">Clear Order <i class="bi bi-trash text-white display-8"></i></button>
+                           </div>
+                        </div></div>
                     </div>
                 </div>
             </div>

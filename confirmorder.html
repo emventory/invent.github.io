@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content>
+<meta name="author" content>
+<link rel="icon" type="image/png" href="img/brand.png">
+<title>eMVentory - Sale and Inventory Manager</title>
+      
+      <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+      
+      <link href="vendor/icons/icofont.min.css" rel="stylesheet" type="text/css">
+      
+      <link rel="stylesheet" href="font/bootstrap-icons.css">
+      
+      <link rel="stylesheet" type="text/css" href="vendor/slick/slick.min.css" />
+      <link rel="stylesheet" type="text/css" href="vendor/slick/slick-theme.min.css" />
+
+      <style>
+         td,th,tr,table {
+            border-top: 1px solid black;
+            border-collapse: collapse;
+         }
+
+         table.center {
+            margin-left: auto; 
+            margin-right: auto;
+         }
+
+         .centered {
+            text-align: center;
+            align-content: center;
+         }
+
+         .ticket {
+            width: auto;
+            max-width: auto;
+         }
+
+         .bs-example{
+            margin: 20px;
+         }
+
+         @media print {
+            .hidden-print,
+            .hidden-print * {
+            display: none !important;
+            }
+         }
+
+
+      </style>
+      
+      <link href="css/style.css" rel="stylesheet">
+      
+      <link href="vendor/sidebar/demo.css" rel="stylesheet">
+
+      <script type="module">
+
+         
+        
+         
+      
+function AddItemToTable(qty,item,price){
+            var tbody = document.getElementById("tbody1");
+               let trow = document.createElement("tr");
+      
+               let qtyTd = document.createElement("td");
+               qtyTd.classList.add ('quantity', 'small', 'text-center');
+      
+               let itemTd = document.createElement("td");
+               itemTd.classList.add ('description', 'small', 'text-center');
+      
+               let totalTd = document.createElement("td");
+               totalTd.classList.add ('price', 'small', 'text-center');
+      
+               qtyTd.innerHTML = qty;
+               itemTd.innerHTML = item;
+               totalTd.innerHTML = price;
+               
+               trow.appendChild(qtyTd);
+               trow.appendChild(itemTd);
+               trow.appendChild(totalTd);
+      
+               tbody.appendChild(trow);
+      
+      }
+              // Import the functions you need from the SDKs you need
+              import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+              import { getDatabase, set, get, ref ,query, child, onValue, limitToFirst, 
+                  limitToLast, orderByChild,equalTo,update, startAt, endAt, endBefore, startAfter 
+              } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+      
+              // TODO: Add SDKs for Firebase products that you want to use
+              // https://firebase.google.com/docs/web/setup#available-libraries
+      
+              // Your web app's Firebase configuration
+              const firebaseConfig = {
+              apiKey: "AIzaSyCobTrhlsjzQ1KGSeVoN-j8wM3S7uy4ie0",
+              authDomain: "emventory-c2455.firebaseapp.com",
+                databaseURL: "https://emventory-c2455-default-rtdb.firebaseio.com/",
+              projectId: "emventory-c2455",
+              storageBucket: "emventory-c2455.appspot.com",
+              messagingSenderId: "956457180798",
+              appId: "1:956457180798:web:0eb938d68c9c4bd467822f"
+            };
+              // Initialize Firebase
+              const app = initializeApp(firebaseConfig);
+      
+              const db = getDatabase();
+      
+              function AddAllItemsToTable(theItems){
+                  //TheStudent.reverse();
+                 // stdNo = 0;
+                 var tbody = document.getElementById("tbody1");
+                  tbody.innerHTML = "";
+                  var total = 0;
+                  var teeID  = document.getElementById("tidHidden").value;
+                  theItems.forEach(element => {
+
+
+                     const Query = query(ref(db,"stock"), orderByChild("product_id"),equalTo(element.product_id));
+                        
+                        //console.log(element.product_id);
+                        get(Query)
+                        .then((snapshot) =>{
+                           var items = [];
+                           
+                           snapshot.forEach(childSnapshot => {
+                              console.log(childSnapshot.val().product_name);
+                              AddItemToTable(element.product_qty,childSnapshot.val().product_name,element.total_amount.toFixed(2));
+                           });
+                           
+                        });
+                        //console.log(proName);
+                        total +=element.total_amount;
+                      
+                  });
+
+                  const QueryForDetails = query(ref(db,"transactions"), orderByChild("t_id"),equalTo(teeID));
+                        
+                        //console.log(element.product_id);
+                        get(QueryForDetails)
+                        .then((snapshot) =>{
+                           var items = [];
+                           
+                           snapshot.forEach(childSnapshot => {
+                              console.log(childSnapshot.val().payment_status);
+                              //AddItemToTable(element.product_qty,childSnapshot.val().product_name,element.total_amount.toFixed(2));
+                           });
+                           
+                        });
+                  
+                  document.getElementById("totalValue").innerText = "\u20A6 "+total.toFixed(2);
+              }
+      
+              
+              function GetAllDataOnce(){
+               var tidHidden = document.getElementById("tidHidden").value;
+
+                  //console.log(tidHidden)
+                  const Query = query(ref(db,"sales"), orderByChild("t_id"),equalTo(tid));
+      
+                  get(Query)
+                  .then((snapshot) =>{
+                      var items = [];
+      
+                      snapshot.forEach(childSnapshot => {
+                        items.push(childSnapshot.val());
+                      });
+                      AddAllItemsToTable(items);
+                  });
+                  
+              }
+      
+      
+              //window.onload = GetAllDataOnce;
+
+      if(sessionStorage.getItem("key")  == null){
+            alert("Access Denied! Please Login");
+            window.open("login.html", "_self");
+         }
+      
+         function logout(){
+            sessionStorage.clear();
+            window.open("login.html", "_self");
+         }
+
+         var tid;
+         function getTransactionId(){
+         const queryString = window.location.search;
+         const urlParams = new URLSearchParams(queryString);
+
+         tid = urlParams.get('tid');
+         //const product_name = urlParams.get('product_name');
+
+         document.getElementById("tidHidden").value = tid;
+         console.log(tid);
+         GetAllDataOnce();
+         }
+         window.onload = getTransactionId;
+
+</script>
+
+
+
+
+   </head>
+   <body class="bg-light">         
+   <div class="p-3 shadow-sm bg-warning danger-nav osahan-home-header sticky-top hidden-print">
+      <div class="font-weight-normal mb-0 d-flex align-items-center">
+         <h6 class="fw-normal mb-0 text-dark d-flex align-items-center">
+            <a class="text-dark me-3 fs-4" href="transactions.html"><i class="bi bi-chevron-left"></i></a>
+            <h4 class="m-0 fw-bold text-black">eM<span class="text-success">Ventory</span></h4>
+         </h6>
+         <div class="ms-auto d-flex align-items-center">
+            <a href="signin.html" class="me-3 text-dark fs-5"><i class="bi bi-person-circle"></i></a>
+            <a class="toggle osahan-toggle fs-4 text-dark ms-auto" href="#"><i class="bi bi-list"></i></a>
+         </div>
+      </div>
+   </div>
+      <div class="p-3 d-flex align-items-center justify-content-center vh-100 flex-column" id = "confirmStatusDiv">
+
+         <div class="alert alert-success d-flex align-items-center hidden-print" role="alert">
+             <i class="bi bi-balloon text-danger h4"></i><i class="bi bi-balloon-heart-fill text-warning h4"></i><i class="bi bi-balloon-fill text-success h4"></i>
+             <div>
+              <h6> &nbsp;Order Confirmed! &nbsp;</h6>
+            </div>
+            <i class="bi bi-balloon text-danger h4"></i><i class="bi bi-balloon-heart-fill text-warning h4"></i><i class="bi bi-balloon-fill text-success h4"></i>
+          </div>
+         <div class="text-center">
+            <p class="text-muted text-success">Your Order was Confirmed Successfully!</p>
+         </div>
+
+         <div class="osahan-footer p-3">
+            <div class="d-grid gap-3">
+               <a href="order-detail.html" id="openPrintDialog" class="btn btn-outline-success btn-lg w-100 shadow px-5 hidden-print"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">Print Receipt</a>
+
+
+               <input type="hidden" id="tidHidden" name="tidHidden" />
+               <a id="continueShopping" class="btn btn-success btn-lg w-100 shadow px-5 hidden-print" onclick="(function () { 
+                                 
+                  if (confirm('Start Another Transaction?')) {
+                     localStorage.clear();
+                     cart = [];
+                     window.open('newtransaction.html', '_self');
+                  } else {
+                     return false;
+                   }
+                  
+                  
+            
+            })()">New Transaction</a>
+              
+         </script>
+            </div>
+         </div>
+
+
+
+         <!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centered modal-sm">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h5 class="modal-title" id="staticBackdropLabel">Transaction Receipt</h5>
+         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+       </div>
+       <div class="modal-body">
+         <div class="ticket">
+            <h2 class="centered">Elfs Distributors</h2>
+            <p class="centered">No. 5 Olu Obasanjo Road Diobu Port Harcort
+                <br>09034567789, 34234567789</p>
+            <table class="center" width = "75%">
+                <thead>
+                    <tr>
+                        <th class="quantity text-center"><small><strong>Qty</strong> </small></th>
+                        <th class="description text-center"><small><strong>Item</strong> </small></th>
+                        <th class="price text-center"><small><strong>Total(₦)</strong> </small></th>
+                        
+
+                    </tr>
+                </thead>
+                <tbody id="tbody1">
+                   
+                </tbody>
+                <tbody id="tbody2">
+                   
+                  <tr>
+                     
+                      <td colspan="2"  align="right" class="description">Total : </td>
+                      <td class="price"><small><strong id="totalValue"></strong> </small></td>
+                  </tr>
+              </tbody>
+            </table>
+            <p class="centered">Thanks for your purchase!</p>
+        </div>
+       </div>
+       <div class="modal-footer">
+         <button id="btnPrint" type="button" class="btn btn-primary hidden-print">Print</button>
+         <button type="button" class="btn btn-secondary hidden-print" data-bs-dismiss="modal"  onclick="(function () { 
+             
+               //localStorage.clear();
+               //cart = [];
+               //window.open('transactions.html', '_self');
+         
+      })()">Close</button>
+
+
+
+         <script>
+            
+               const btnPrint = document.getElementById("btnPrint");
+               btnPrint.addEventListener("click", (e)=>{
+               window.print();
+               console.log(tid)
+         
+            });
+     
+      </script>
+       </div>
+     </div>
+   </div>
+ </div>
+
+
+
+      </div>
+      
+      <nav id="main-nav">
+         <ul>
+            <li>
+               <a href="#" class="bg-success sidebar-user d-flex align-items-center py-4 px-3 border-0 mb-0">
+                  <img src="img/profile.png" class="img-fluid me-3">
+                  <div class="text-white">
+                     <h6 class="mb-0">eMVentory</h6>
+                     <small>emcodinstech@gmail.com</small><br>
+                     <span class="f-10 text-white-50">Version 1.00</span>    
+                  </div>
+               </a>
+            </li>
+            <li>
+               <a href="sales.html"><i class="bi bi-bar-chart-line me-2"></i> Sales</a>
+            </li>
+            <li>
+               <a href="stock.html"><i class="bi bi-file-break me-2"></i> Stock Inventory</a>
+            </li>
+            <li>
+               <a href="transactions.html"><i class="bi bi-ui-checks-grid me-2"></i> Transactions</a>
+            </li>
+            <li>
+               <a href="salesreps.html"><i class="bi bi-person-lines-fill me-2"></i> Sales Reps</a>
+            </li>
+            <li><a href="manage.html"><i class="bi bi-person-bounding-box me-2"></i> Manage</a></li>
+            <li><a href="settings.html"><i class="bi bi-gear me-2"></i> Settings</a></li>
+            <li><a href="#" onClick="logout()"><i class="bi bi-power me-2"></i> Sign Out</a></li>
+         
+         </ul>
+
+      
+         <ul class="bottom-nav">
+            <li class="email">
+               <a class="text-success nav-item text-center" href="home.html" tabindex="0" role="menuitem">
+                  <p class="h5 m-0"><i class="icofont-ui-home text-success"></i></p>
+                  Home
+               </a>
+            </li>
+            <li class="github">
+               <a href="gift-card.html" class="nav-item text-center" tabindex="0" role="menuitem">
+                  <p class="h5 m-0"><i class="icofont-sale-discount"></i></p>
+                  Offer
+               </a>
+            </li>
+            <li class="ko-fi">
+               <a href="support.html" class="nav-item text-center" tabindex="0" role="menuitem">
+                  <p class="h5 m-0"><i class="icofont-support-faq"></i></p>
+                  Help
+               </a>
+            </li>
+         </ul>
+      </nav>
+      
+      <script src="vendor/jquery/jquery.min.js"></script>
+      <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+      
+      <script type="text/javascript" src="vendor/slick/slick.min.js"></script>
+      
+      <script type="text/javascript" src="vendor/sidebar/hc-offcanvas-nav.js"></script>
+      
+      <script src="js/custom.js"></script>
+
+      
+   <script src="../../cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="6b9f5a242c095c46a2040786-|49" defer></script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/v2b4487d741ca48dcbadcaf954e159fc61680799950996" integrity="sha512-D/jdE0CypeVxFadTejKGTzmwyV10c1pxZk/AqjJuZbaJwGMyNHY3q/mTPWqMUnFACfCTunhZUVcd4cV78dK1pQ==" data-cf-beacon='{"rayId":"7ba47d0bb9f8fa40","version":"2023.3.0","r":1,"b":1,"token":"dd471ab1978346bbb991feaa79e6ce5c","si":100}' crossorigin="anonymous"></script>
+</body>
+
+</html>
