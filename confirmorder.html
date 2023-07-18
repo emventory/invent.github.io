@@ -148,12 +148,16 @@ function AddItemToTable(qty,item,price){
                            
                            snapshot.forEach(childSnapshot => {
                               console.log(childSnapshot.val().payment_status);
+                              document.getElementById("discountValue").innerText = "\u20A6 "+Number(childSnapshot.val().discount).toFixed(2);
+                              document.getElementById("finalTotal").innerText = "\u20A6 "+(Number(childSnapshot.val().total_amount) - Number(childSnapshot.val().discount)).toFixed(2);
+                              
                               //AddItemToTable(element.product_qty,childSnapshot.val().product_name,element.total_amount.toFixed(2));
                            });
                            
                         });
                   
                   document.getElementById("totalValue").innerText = "\u20A6 "+total.toFixed(2);
+                  
               }
       
               
@@ -176,18 +180,7 @@ function AddItemToTable(qty,item,price){
               }
       
       
-              //window.onload = GetAllDataOnce;
-
-      if(sessionStorage.getItem("key")  == null){
-            alert("Access Denied! Please Login");
-            window.open("login.html", "_self");
-         }
-      
-         function logout(){
-            sessionStorage.clear();
-            window.open("login.html", "_self");
-         }
-
+        
          var tid;
          function getTransactionId(){
          const queryString = window.location.search;
@@ -201,6 +194,24 @@ function AddItemToTable(qty,item,price){
          GetAllDataOnce();
          }
          window.onload = getTransactionId;
+
+
+</script>
+
+<script>
+
+         //window.onload = GetAllDataOnce;
+
+         if(sessionStorage.getItem("key")  == null){
+            alert("Access Denied! Please Login");
+            window.open("login.html", "_self");
+         }
+      
+         function logout(){
+            sessionStorage.clear();
+            window.open("login.html", "_self");
+         }
+
 
 </script>
 
@@ -273,7 +284,7 @@ function AddItemToTable(qty,item,price){
             <h2 class="centered">Elfs Distributors</h2>
             <p class="centered">No. 5 Olu Obasanjo Road Diobu Port Harcort
                 <br>09034567789, 34234567789</p>
-            <table class="center" width = "75%">
+            <table class="center table table-bordered table-sm"  width = "75%">
                 <thead>
                     <tr>
                         <th class="quantity text-center"><small><strong>Qty</strong> </small></th>
@@ -286,14 +297,38 @@ function AddItemToTable(qty,item,price){
                 <tbody id="tbody1">
                    
                 </tbody>
-                <tbody id="tbody2">
+                  <tbody id="tbody2">
                    
-                  <tr>
-                     
-                      <td colspan="2"  align="right" class="description">Total : </td>
-                      <td class="price"><small><strong id="totalValue"></strong> </small></td>
-                  </tr>
-              </tbody>
+                        <tr>
+                           <td colspan="2"  align="right" class="total">Total : </td>
+                           <td class="price"><small id="totalValue"></small></td>
+                        </tr>
+                        <tr>
+                           <td colspan="2"  align="right" class="discount">Discount : </td>
+                           <td class="price"><small id="discountValue"></small></td>
+                        </tr>
+                        <tr>
+                        <td colspan="2"  align="right" class="finaltotal">Final Total : </td>
+                        <td class="price"><small id="finalTotal"></small></td>
+                        </tr>
+                  </tbody>
+
+                  <tbody id="tbody3">
+                   
+                     <tr>
+                        <td align="right" class="total">Total : </td>
+                        <td colspan="2" class="price"><small id="totalValue"></small></td>
+                     </tr>
+                     <tr>
+                        <td  align="right" class="discount">Discount : </td>
+                        <td colspan="2" class="price"><small id="discountValue"></small></td>
+                     </tr>
+                     <tr>
+                     <td align="right" class="finaltotal">Final Total : </td>
+                     <td colspan="2"  class="price"><small id="finalTotal"></small></td>
+                     </tr>
+               </tbody>
+
             </table>
             <p class="centered">Thanks for your purchase!</p>
         </div>
