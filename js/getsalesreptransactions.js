@@ -25,27 +25,27 @@
   // Get a reference to the database service
   const db = getDatabase();
   
-  function getAllStock(){
-
+  function getAllSalesReps(){
+    
       var status = 1;
-      const que = query(ref(db,'stock'),orderByChild('status'),equalTo(status));
+      const que = query(ref(db,'salesrep'),orderByChild('status'),equalTo(status));
 
       get(que).then((snapshot) => {
         if (snapshot.exists()) {
 
-          var stocks = [];
+          var salesreps = [];
 
           snapshot.forEach(function (childSnapshot) {
 
-            stocks.push(childSnapshot.val());
+            salesreps.push(childSnapshot.val());
 
         });
-        console.log(stocks);
-        addStockItemsForDisplay(stocks);
+
+        addSalesRepForDisplay(salesreps);
 
         //console.log(snapshot.val().name);
         } else {
-          alert("Error: No Item(s) already added to the inventory");
+          alert("Error: No User already added");
         }
       }).catch((error) => {
         console.error(error);
@@ -54,14 +54,13 @@
 							
 }
 
-window.onload = getAllStock();
+window.onload = getAllSalesReps();
 
-function  addStockItemsForDisplay(stocks){
-  stocks.forEach(element => {
+function  addSalesRepForDisplay(salesreps){
+  salesreps.forEach(element => {
 
-    sendToDisplay(element.product_name, element.product_brand, element.product_cat, 
-      element.stock_qty, element.reorder_value, element.product_id, element.product_company, 
-      element.stock_value_in_hand, element.unit_price);
+    sendToDisplay(element.rep_id, element.rep_name, element.rep_phone, 
+      element.rep_email, element.rep_address, element.date_registered, element.rep_gender);
 
   });
 }
@@ -72,8 +71,7 @@ var bg_white = document.getElementById('bg_white');
 
 var radioId = 1;
 
-function sendToDisplay(product_name,product_brand, product_cat, stock_qty, reorder_value, product_id, 
-  product_company, stock_value_in_hand, unit_price){
+function sendToDisplay(rep_id, rep_name, rep_phone, rep_email, rep_address, date_registered, rep_gender){
 
   let btn_check = document.createElement('input');
   btn_check.setAttribute('type', 'radio');
@@ -94,7 +92,7 @@ function sendToDisplay(product_name,product_brand, product_cat, stock_qty, reord
 
 
   let bi_houseItalics = document.createElement('i');
-	bi_houseItalics.classList.add ('bi','bi-house');
+	bi_houseItalics.classList.add ('bi','bi-person');
   //
   btn_outline_lightLabel.appendChild(bi_houseItalics);
 
@@ -104,7 +102,7 @@ function sendToDisplay(product_name,product_brand, product_cat, stock_qty, reord
   let fw_boldH6 = document.createElement('h6');
 	fw_boldH6.classList.add ('mb-0','fw-bold');
 
-  let h6Text = document.createTextNode(product_name +' -> '+ product_cat);
+  let h6Text = document.createTextNode(rep_name);
   fw_boldH6.appendChild(h6Text);
 
   text_startSpan.appendChild(fw_boldH6);
@@ -112,38 +110,51 @@ function sendToDisplay(product_name,product_brand, product_cat, stock_qty, reord
   let text_mutedDiv = document.createElement('div');
 	text_mutedDiv.classList.add ('text-muted', 'small', 'text-opacity-50');
 
-  let text_mutedDivText = document.createTextNode('Qty Remaining : '+stock_qty);
+  let text_mutedDivText = document.createTextNode('Email : '+rep_email);
   text_mutedDiv.appendChild(text_mutedDivText);
+
+  let br = document.createElement('br');
+  text_mutedDiv.appendChild(br);
+
+
+  let text_mutedDivTextPhone = document.createTextNode(' Phone: '+rep_phone);
+  text_mutedDiv.appendChild(text_mutedDivTextPhone);
+
+  let br2 = document.createElement('br');
+  text_mutedDiv.appendChild(br2);
+
+  let text_mutedDivTextAddress = document.createTextNode(' Address: '+rep_address);
+  text_mutedDiv.appendChild(text_mutedDivTextAddress);
 
   text_startSpan.appendChild(text_mutedDiv);
 
   let bi_check_circle_filltalics = document.createElement('i');
-	bi_check_circle_filltalics.classList.add ('bi','bi-check-circle-fill','ms-auto', 'text-success');
+	bi_check_circle_filltalics.classList.add ('bi','bi-check-circle-fill','ms-auto');
 
   let bi_check_circle_filltalicsDown = document.createElement('i');
-	bi_check_circle_filltalicsDown.classList.add ('bi','bi-arrow-down-square-fill','ms-auto', 'text-danger');
+	bi_check_circle_filltalicsDown.classList.add ('bi','bi-arrow-down-square-fill','ms-auto');
   
  // bi bi-arrow-down-square
 
   btn_outline_lightLabel.appendChild(text_startSpan);
 
-  if(stock_qty <= reorder_value){
-    btn_outline_lightLabel.appendChild(bi_check_circle_filltalicsDown);
+  // if(stock_qty <= reorder_value){
+  //   btn_outline_lightLabel.appendChild(bi_check_circle_filltalicsDown);
 
-  }
-  else if(stock_qty > reorder_value){
+  // }
+ // else if(stock_qty > reorder_value){
     btn_outline_lightLabel.appendChild(bi_check_circle_filltalics);
 
-  }
+  //}
   
 
 
   let hiddenForItemID = document.createElement('input');
   hiddenForItemID.setAttribute('type', 'hidden');
-  hiddenForItemID.setAttribute('value', product_id);
+  hiddenForItemID.setAttribute('value', rep_id);
   hiddenForItemID.setAttribute('id', 'hiddenID'+radioId);
 
-  let itemID = document.createTextNode(product_id);
+  let itemID = document.createTextNode(rep_id);
   hiddenForItemID.appendChild(itemID);
 
   osahan_btn_group.appendChild(btn_outline_lightLabel);
@@ -158,17 +169,16 @@ function sendToDisplay(product_name,product_brand, product_cat, stock_qty, reord
 
 
   el2.addEventListener("click", function(){
-
+    //rep_id, rep_name, rep_phone, rep_email, rep_address, date_registered
       //console.log(el.value);
-      window.open('itemdetails.html?product_id='+product_id+'&product_name='+product_name+'&product_brand='
-      +product_brand+'&product_cat='+product_cat+'&stock_qty='+stock_qty+'&reorder_value='
-      +reorder_value+'&product_company='+product_company+'&stock_value_in_hand='+stock_value_in_hand+'&unit_price='
-      +unit_price, "_self");
+      window.open('reptransactionlist.html?rep_id='+rep_id+'&rep_name='+rep_name, "_self");
     }
   )
   radioId = radioId+1;
 
 }
+
+
 
 
 

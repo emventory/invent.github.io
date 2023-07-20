@@ -122,7 +122,6 @@ sendToSalesRepSelect(element.rep_id, element.rep_name, element.rep_email, elemen
 });
 }
 
-
 var selectsalesrep = document.getElementById('selectsalesrep');
 
 var radioId = 1;
@@ -138,10 +137,6 @@ selectsalesrep.appendChild(option);
 ////////////////////////////////////Ends Get Sale Rep///////////////////////
 
 
-
-
-
-
 var grandTotal = 0;
 let subTotal;
 var m = JSON.parse(localStorage.getItem("CART"));
@@ -152,32 +147,13 @@ var f = 0;
         f++;
         //window.open('aa.html?numberOfUnits='+key.numberOfUnits+'&product_id='+key.product_id, "_self");
         console.log(key.numberOfUnits +' '+ key.product_cat +' '+ key.product_name +' '+ key.product_id);
-//         document.getElementById("checkOutDiv").innerHTML += `<a href="listing.html" class="text-dark text-decoration-none">
-//    <div class="osahan-gift d-flex gap-3 align-items-center bg-white shadow-sm rounded mb-3 overflow-hidden p-3">
-//       <div class="d-flex">
-//          <i class="bi bi-check-lg display-6 text-dark"></i>
-//       </div>
-//       <div>
-//          <div class="gift-card">
-//             <h6 class="mb-0 fw-bold text-success l-hght-18">${key.product_name}</h6>
-//             <span class="text-dark-50 small">Quantity : ${key.numberOfUnits}</span><br>
-//             <span class="text-dark-50 small">Unit Price : &#8358 ${key.unit_price}</span>
-//          </div>
-//       </div>
-//       <div class="ms-auto">
-//          <p class="small mb-0 l-hght-10 text-success gift-code">Total : &#8358 ${t.toFixed(2)}</p>
-//       </div>
-//    </div>
-// </a>`;
 
-subTotal = key.unit_price*key.numberOfUnits;
-grandTotal = grandTotal += subTotal;
-document.getElementById("cumAmount").value = grandTotal.toFixed(2);
-console.log(subTotal);
-    })
-console.log(grandTotal);
-
-//document.getElementById("grandT").innerText="\u20A6 "+grandTotal.toFixed(2);
+        subTotal = key.unit_price*key.numberOfUnits;
+        grandTotal = grandTotal += subTotal;
+        document.getElementById("cumAmount").value = grandTotal.toFixed(2);
+        console.log(subTotal);
+      })
+        console.log(grandTotal);
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -185,54 +161,6 @@ console.log(grandTotal);
 document.getElementById('selectpaymenttype').addEventListener('change', function() {
   selectPaymentType();
 });
-
-
-
-// ////// Start  VAT//////////////
-// document.getElementById('vat').addEventListener('click', (e)=>{
-
-//   var vatValue = Number(document.getElementById("vat").value);
-  
-//   if(vatValue == ''){
-//     document.getElementById("cumAmount").value = grandTotal.toFixed(2);
-//   }
-//   else if(vatValue != ''){
-
-//     console.log(vatValue);
-//     var gTotalVat = Number(grandTotal) + vatValue;
-//     document.getElementById("cumAmount").value = gTotalVat.toFixed(2);
-
-//     //document.getElementById('dueChange').value = dueCV.toFixed(2);
-//   }
-// //console.log(gTotalVat);
-// //document.getElementById("cumAmount").value = "";
-//   //document.getElementById("cumAmount").value = gTotalVat;
-
-// });
-
-// document.getElementById('vat').addEventListener('keyup', (e)=>{
-
-//   var vatValue = Number(document.getElementById("vat").value);
-  
-//   if(vatValue == ''){
-//     document.getElementById("cumAmount").value = grandTotal.toFixed(2);
-//   }
-//   else if(vatValue != ''){
-
-//     console.log(vatValue);
-//     var gTotalVat = Number(grandTotal) + vatValue;
-//     document.getElementById("cumAmount").value = gTotalVat.toFixed(2);
-
-//     //document.getElementById('dueChange').value = dueCV.toFixed(2);
-//   }
-// //console.log(gTotalVat);
-// //document.getElementById("cumAmount").value = "";
-//   //document.getElementById("cumAmount").value = gTotalVat;
-
-// });
-
-// ////// End  VAT//////////////
-
 
 
 ////// Start  Discount//////////////
@@ -254,12 +182,7 @@ document.getElementById('discount').addEventListener('click', (e)=>{
     document.getElementById('amtTendered').value = '';
     document.getElementById('dueChange').value = '';
 
-    //document.getElementById('dueChange').value = dueCV.toFixed(2);
   }
-//console.log(gTotalVat);
-//document.getElementById("cumAmount").value = "";
-  //document.getElementById("cumAmount").value = gTotalVat;
-
 });
 
 
@@ -280,26 +203,17 @@ document.getElementById('discount').addEventListener('keyup', (e)=>{
     document.getElementById('amtTendered').value = '';
     document.getElementById('dueChange').value = '';
 
-    //document.getElementById('dueChange').value = dueCV.toFixed(2);
   }
-//console.log(gTotalVat);
-//document.getElementById("cumAmount").value = "";
-  //document.getElementById("cumAmount").value = gTotalVat;
 
 });
 
 ////// End  Discount//////////////
-
-
 
 var paymentStatus = "";
 function selectPaymentType() {
 
   const displayPaymentDetails = document.getElementById("displayPaymentDetails");
   var paymentType = document.getElementById("selectpaymenttype").value;
-
-  //var cumAmtValue = 300; 
-
 
   if(paymentType == "Cash"){
 
@@ -360,27 +274,68 @@ function selectPaymentType() {
     }
   }
 
-
-   // console.log(tt);
-
   });
-
 
   }
   else if(paymentType == "POSTrans"){
-    displayPaymentDetails.innerHTML = ` <div class="col-6">
-    <label class="form-label text-muted small mb-1">Amount Tendered (<small>&#8358;</small>)</label>
+    displayPaymentDetails.innerHTML = `<div class="col-6">
+    <label id = "amtTError" class="form-label text-muted small mb-1">Amount Tendered (<small>&#8358;</small>)</label>
     <div class="input-group input-group-lg bg-white shadow-sm rounded overflow-hiddem">
-       <input onkeypress="return isNumberKey(this, event);" type="text" class="form-control"  id="supplyprice" placeholder="0.00" ondrop="return false;" onpaste="return false;" oncontextmenu="return false;" required>
+       <input onkeypress="return isNumberKey(this, event);" type="text" class="form-control"  id="amtTendered" placeholder="0.00" ondrop="return false;" onpaste="return false;" oncontextmenu="return false;" required>
     </div>
-  </div>
-  
+  </div>`;
+
+  var dueChangeValue = "0.00"; 
+
+  displayPaymentDetails.innerHTML +=`
   <div class="col-6">
     <label class="form-label text-muted small mb-1">Due Change (<small>&#8358;</small>)</label>
     <div class="input-group input-group-lg bg-white shadow-sm rounded overflow-hiddem">
-       <input value = "0.00" onkeypress="return isNumberKey(this, event);" type="text" class="form-control"  id="supplyprice" placeholder="0.00" readonly>
+       <input value = "${dueChangeValue}"  onkeypress="return isNumberKey(this, event);" type="text" class="form-control"  id="dueChange" placeholder="0.00" readonly>
     </div>
   </div>`;
+
+
+  document.getElementById('amtTendered').addEventListener('input', (e)=>{
+
+    var amtTendered = document.getElementById('amtTendered').value; 
+    var grandTotalCum = Number(document.getElementById('cumAmount').value); 
+
+    if(amtTendered == ''){
+      document.getElementById('amtTError').innerHTML = "Amount Tendered (<small>&#8358;</small>)";
+    }
+
+    else{
+
+    if(amtTendered < grandTotalCum){
+      
+      var dueCV = grandTotalCum - amtTendered;
+      document.getElementById('amtTError').innerHTML = "<small class = 'font-weight-normal text-danger small l-hght-18'>Incomplete Amount</small>";
+      document.getElementById('dueChange').value = dueCV.toFixed(2);
+
+      paymentStatus = "Pending Completion"
+      
+    }
+
+    else if(amtTendered == grandTotalCum){
+
+      var dueCV = amtTendered - grandTotalCum;
+      document.getElementById('amtTError').innerHTML = "Amount Tendered (<small>&#8358;</small>)";
+      document.getElementById('dueChange').value = dueCV.toFixed(2);
+      paymentStatus = "Completed"
+    }
+
+    else if(amtTendered > grandTotalCum){
+
+      alert("Error!: Amount Tendered Must Not Be Greater Than "+grandTotalCum);
+      document.getElementById('amtTendered').value = null;
+      document.getElementById('amtTendered').setAttribute("placeholder","0.00");
+      document.getElementById('dueChange').value = null;
+      document.getElementById('dueChange').setAttribute("placeholder","0.00");
+    }
+  }
+
+  });
   }
   else if(paymentType == "CashPOStransfer"){
         displayPaymentDetails.innerHTML = ` <div class="col-6">
@@ -414,9 +369,7 @@ function selectPaymentType() {
   </div>`;
   }
 
-  
 }
-
 
 ////// Start Confirm Order Button//////////////
 
@@ -440,9 +393,6 @@ document.getElementById('confirmorder').addEventListener('click', (e)=>{
   else{
   
   if(paymentType == "Cash"){
-    // document.getElementById("cumAmount").value = grandTotal.toFixed(2);
-    // document.getElementById('amtTendered').value = '';
-    // document.getElementById('dueChange').value = '';
 
     var amtTendered = Number(document.getElementById('amtTendered').value); 
 
@@ -461,7 +411,6 @@ document.getElementById('confirmorder').addEventListener('click', (e)=>{
           var salesid = md5(tid);
           salesid = salesid.substr(0, 7);
           //var stock_value = qtysupplied*supplyprice;
-
 
           var grandTotal = 0;
           let subTotal;
@@ -527,31 +476,134 @@ document.getElementById('confirmorder').addEventListener('click', (e)=>{
           }).then(()=>{
 ///////////////////////////update////////////////////////////////////////////////
             update(ref(db), updateStock).then(()=>{
-              alert("Your Order is Confirmed Successfully!");
+              alert("Your Order was Confirmed Successfully!");
 
               window.open('confirmorder.html?tid='+tid, "_self");
   
           }).catch((error)=>{
-              alert("Data Not Updated Well");
+              alert("Your Order was Not Confirmed Successfully!");
           });
 
 ////////////////////////////update/////////////////////////////////////////////
           }).catch(()=>{
             alert("Error: Item Added Not Successful");
           });
-
-          
+   
 
     }
     var grandTotalCum = Number(document.getElementById('cumAmount').value); 
-
-    // document.getElementById('dueChange').value = '';
-
 
     console.log(paymentType);
     console.log(selectsalesrep);
 
   }
+
+  else if(paymentType == "POSTrans"){
+
+    var amtTendered = Number(document.getElementById('amtTendered').value); 
+
+    if(amtTendered == ''){
+
+      document.getElementById('amtTError').innerHTML = `<label id = "amtTError" class="form-label text-muted small mb-1">Amount Tendered <code>Fill Here!</code></label>`;
+
+    }
+    else{
+
+          const dates = new Date();
+          var dateToString = dates.toString()
+          var tid = md5(dateToString);
+          tid = tid.substr(0, 10);
+
+          var salesid = md5(tid);
+          salesid = salesid.substr(0, 7);
+          //var stock_value = qtysupplied*supplyprice;
+
+          var grandTotal = 0;
+          let subTotal;
+          var numberOfItems = 0;
+          var m = JSON.parse(localStorage.getItem("CART"));
+
+          var remainingbalance = document.getElementById('dueChange').value;
+          var discountValue = document.getElementById('discount').value;
+
+          const updateStock = {};
+          const setSales = {};
+          
+          m.forEach(function(key){
+
+            updateStock[`/stock/${key.product_name}/stock_qty`] = Number(key.stock_qty - key.numberOfUnits);
+            
+            var totalAmount = key.unit_price*key.numberOfUnits;
+            
+              salesid = salesid.substr(0, 7)+md5(key.product_name).substr(0, 3);
+
+            set(ref(db, 'sales/' + salesid), {
+              t_id:tid,
+              user_id:sessionStorage.getItem("key"),
+              sales_rep_id:selectsalesrep,
+              sales_id:salesid,
+              product_id:key.product_id,
+              product_qty:key.numberOfUnits,
+              unit_price:key.unit_price,
+              total_amount:totalAmount,
+              date:dateToString,
+              status:1
+            });
+
+
+            console.log(key.numberOfUnits +' '+ key.product_cat +' '+ key.product_name +' '+ key.product_id +' '+ key.stock_qty);
+            console.log(key.stock_qty - key.numberOfUnits);
+            subTotal = key.unit_price*key.numberOfUnits;
+
+            numberOfItems += Number(key.numberOfUnits);
+    
+            grandTotal = grandTotal += subTotal;
+        //document.getElementById("cumAmount").value = grandTotal.toFixed(2);
+            console.log(subTotal);
+    });
+    console.log(grandTotal);
+    console.log(updateStock);
+
+    console.log(numberOfItems);
+
+          set(ref(db, 'transactions/' + tid), {
+            t_id:tid,
+            user_id:sessionStorage.getItem("key"),
+            sales_rep_id:selectsalesrep,
+            mode_of_pay:paymentType,
+            total_items:numberOfItems,
+            total_amount:grandTotal.toFixed(2),
+            amount_tendered:amtTendered.toFixed(2),
+            remaining_balance:remainingbalance,
+            discount:discountValue,
+            t_date:dateToString,
+            payment_status:paymentStatus,
+            status:1
+          }).then(()=>{
+///////////////////////////update////////////////////////////////////////////////
+            update(ref(db), updateStock).then(()=>{
+              alert("Your Order was Confirmed Successfully!");
+
+              window.open('confirmorder.html?tid='+tid, "_self");
+  
+          }).catch((error)=>{
+              alert("Your Order was Not Confirmed Successfully!");
+          });
+
+////////////////////////////update/////////////////////////////////////////////
+          }).catch(()=>{
+            alert("Error: Item Added Not Successful");
+          });
+   
+
+    }
+    var grandTotalCum = Number(document.getElementById('cumAmount').value); 
+
+    console.log(paymentType);
+    console.log(selectsalesrep);
+
+  }
+  
   else if(discountValue != ''){
 
     console.log(discountValue);
@@ -559,12 +611,7 @@ document.getElementById('confirmorder').addEventListener('click', (e)=>{
     document.getElementById("cumAmount").value = gTotalDiscount.toFixed(2);
     document.getElementById('amtTendered').value = '';
     document.getElementById('dueChange').value = '';
-
-    //document.getElementById('dueChange').value = dueCV.toFixed(2);
   }
-//console.log(gTotalVat);
-//document.getElementById("cumAmount").value = "";
-  //document.getElementById("cumAmount").value = gTotalVat;
 
 }
 

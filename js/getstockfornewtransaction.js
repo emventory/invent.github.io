@@ -135,17 +135,23 @@ function sendToDisplay(product_name,product_brand, product_cat, stock_qty, reord
   text_startSpan.appendChild(text_mutedDiv2);
 
   let bi_check_circle_filltalics = document.createElement('i');
-	bi_check_circle_filltalics.classList.add ('bi','bi-plus-square-fill','ms-auto');
+	bi_check_circle_filltalics.classList.add ('bi','bi-plus-square-fill','ms-auto', 'text-success');
 
   let bi_check_circle_filltalicsDown = document.createElement('i');
-	bi_check_circle_filltalicsDown.classList.add ('bi','bi-plus-square-fill','ms-auto');
+	bi_check_circle_filltalicsDown.classList.add ('bi','bi-arrow-down-square-fill','ms-auto', 'text-danger');
   
  // bi bi-arrow-down-square
 
   btn_outline_lightLabel.appendChild(text_startSpan);
 
   if(stock_qty <= reorder_value){
+     
     btn_outline_lightLabel.appendChild(bi_check_circle_filltalicsDown);
+
+    if(stock_qty <= 2 ){
+
+      btn_check.setAttribute('disabled', ''); 
+    }
 
   }
   else if(stock_qty > reorder_value){
@@ -153,8 +159,6 @@ function sendToDisplay(product_name,product_brand, product_cat, stock_qty, reord
 
   }
   
-
-
   let hiddenForItemID = document.createElement('input');
   hiddenForItemID.setAttribute('type', 'hidden');
   hiddenForItemID.setAttribute('value', product_id);
@@ -167,8 +171,6 @@ function sendToDisplay(product_name,product_brand, product_cat, stock_qty, reord
   osahan_btn_group.appendChild(hiddenForItemID);
   bg_white.appendChild(osahan_btn_group);
   
-  
-
   var el = document.getElementById('hiddenID'+radioId);
   var el2 = document.getElementById('label'+radioId);
   //console.log(el.innerText);
@@ -207,8 +209,6 @@ function getAllBasketDetails() {
     window.open('checkout.html', "_self");
   
 }
-
-
 
 // ADD TO CART
 function addToCart(product_id) {
@@ -252,7 +252,6 @@ function clearBasket(){
 
 }
 
-
 // calculate and render subtotal
 function renderSubtotal() {
   let totalPrice = 0,totalItems = 0;
@@ -272,9 +271,6 @@ function renderClearBasket(){
   clearAndCheckOutEl.innerHTML = `<a class="btn btn-success btn-md shadow cb"><i class="bi bi-trash me-2"></i>Clear Basket</a>`; // clear basket element
     
  ///// Done
-      
-
-
 
        let btn_btn_success_btn_md_shadow_CheckoutA = document.createElement('a');
        btn_btn_success_btn_md_shadow_CheckoutA.classList.add ('checkOut','btn', 'btn-success', 'btn-md', 'shadow');
@@ -300,10 +296,8 @@ function renderClearBasket(){
         clearAndCheckOutEl.appendChild(btn_btn_success_btn_md_shadow_CheckoutA);
        }
    
-       
  
 }
-
 
 //Render Cart Items
 function renderCartItems(){
@@ -443,8 +437,6 @@ function renderCartItems(){
       btn_btn_light_text_success_PlusDiv.appendChild(bi_bi_plusltalics);
 
 
-
-
       input_group_input_group_smDiv.appendChild(btn_btn_light_text_success_PlusDiv);
 
 
@@ -465,8 +457,6 @@ function renderCartItems(){
 
       cartItemsEl.appendChild(bg_white_shadow_smDiv);
 
-///// Done
-//document.querySelector('.minusBtn').addEventListener('click', changeNumberOfUnits("minus", item.product_id));
   }); 
   renderClearBasket();
 }
@@ -502,10 +492,4 @@ function changeNumberOfUnits(action, product_id) {
 
  updateCart();
 }
-
-
-
-
-
-
 
