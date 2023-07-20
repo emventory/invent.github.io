@@ -18,18 +18,7 @@
       <link rel="stylesheet" type="text/css" href="vendor/slick/slick.min.css" />
       <link rel="stylesheet" type="text/css" href="vendor/slick/slick-theme.min.css" />
 
-      <script language="javascript">
-         function printdiv() {
-             var headstr = "<html><head><title></title></head><body>";
-             var footstr = "</body>";
-             var newstr = document.getElementById("div_print").innerHTML;
-             var oldstr = document.body.innerHTML;
-             document.body.innerHTML = headstr + newstr + footstr;
-             window.print();
-             document.body.innerHTML = oldstr;
-             return false;
-         }
-     </script>
+   
 
       <style>
          td,th,tr,table {
@@ -243,12 +232,11 @@ function AddItemToTable(qty,item,price){
    <div class="p-3 shadow-sm bg-warning danger-nav osahan-home-header sticky-top hidden-print">
       <div class="font-weight-normal mb-0 d-flex align-items-center">
          <h6 class="fw-normal mb-0 text-dark d-flex align-items-center">
-            <a class="text-dark me-3 fs-4" href="transactions.html"><i class="bi bi-chevron-left"></i></a>
+            <a class="text-dark me-3 fs-4" href="#"><i class="bi bi-chevron-left"></i></a>
             <h4 class="m-0 fw-bold text-black">eM<span class="text-success">Ventory</span></h4>
          </h6>
          <div class="ms-auto d-flex align-items-center">
-            <a href="signin.html" class="me-3 text-dark fs-5"><i class="bi bi-person-circle"></i></a>
-            <a class="toggle osahan-toggle fs-4 text-dark ms-auto" href="#"><i class="bi bi-list"></i></a>
+            <a href="#" class="me-3 text-dark fs-5"><i class="bi bi-person-circle"></i></a>
          </div>
       </div>
    </div>
