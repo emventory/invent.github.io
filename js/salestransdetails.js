@@ -80,9 +80,14 @@
       }).catch((error) => {
         console.error(error);
       });
-	
+
+      document.getElementById('printerRef').addEventListener('click', ()=>{
+        window.open('confirmorder.html?tid='+t_Id, "_self");
+      })
 							
 }
+
+
 
 window.onload = getTransactionsSalesDetails();
 
@@ -310,5 +315,4 @@ function sendToDisplay(sales_id, t_id, sales_rep_id, product_id, product_qty, to
   radioId = radioId+1;
  
 }
-
 
