@@ -71,6 +71,7 @@ var tAmount = 0;
 var tRemAmount = 0;
 var tAmountTendered = 0;
 var tDiscount = 0;
+//var tAfterDiscount = 0;
 
 function  addTransactionsForDisplay(transactions){
   transactions.forEach(element => {
@@ -84,12 +85,14 @@ function  addTransactionsForDisplay(transactions){
       tRemAmount = Number(element.remaining_balance) + tRemAmount;
       tAmountTendered = Number(element.amount_tendered) + tAmountTendered;
       tDiscount = Number(element.discount) + tDiscount;
+      //tAfterDiscount = Number((tAmount - tDiscount)) + tAfterDiscount;
       //console.log(tAmount);
 
   });
   console.log(tAmount);
-  document.getElementById('totalDisplay').innerText = "Total: \u20A6"+tAmount+
+  document.getElementById('totalDisplay').innerText = "Accum. Total: \u20A6"+tAmount+
   "\n Total Discount: \u20A6"+ tDiscount+
+  "\n Total After Discount: \u20A6"+ (tAmount - tDiscount)+
   "\n Total Amount Tendered: \u20A6"+ tAmountTendered+"\n Total Remaining Bal: \u20A6"+ tRemAmount;
 }
 
