@@ -261,17 +261,17 @@ function AddItemToTable(qty,item,price){
                <input type="hidden" id="tidHidden" name="tidHidden" />
                <a id="continueShopping" class="btn btn-success btn-lg w-100 shadow px-5 hidden-print" onclick="(function () { 
                                  
-                  if (confirm('Start Another Transaction?')) {
+                  if (confirm('Are You Sure To Leave This Page?')) {
                      localStorage.clear();
                      cart = [];
-                     window.open('newtransaction.html', '_self');
+                     window.open('main.html', '_self');
                   } else {
                      return false;
                    }
                   
                   
             
-            })()">New Transaction</a>
+            })()">Continue</a>
               
          </script>
             </div>
