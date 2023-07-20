@@ -90,10 +90,26 @@ function  addTransactionsForDisplay(transactions){
 
   });
   console.log(tAmount);
-  document.getElementById('totalDisplay').innerText = "Accum. Total: \u20A6"+tAmount+
-  "\n Total Discount: \u20A6"+ tDiscount+
-  "\n Total After Discount: \u20A6"+ (tAmount - tDiscount)+
-  "\n Total Amount Tendered: \u20A6"+ tAmountTendered+"\n Total Remaining Bal: \u20A6"+ tRemAmount;
+
+  if(tRemAmount > 0){   
+
+    document.getElementById('totalDisplay').classList.add('btn','btn-danger','btn-sm','w-100','shadow')
+    document.getElementById('totalDisplay').innerText = "Accum. Total: \u20A6"+tAmount+
+    "\n Total Discount: \u20A6"+ tDiscount+
+    "\n Total After Discount: \u20A6"+ (tAmount - tDiscount)+
+    "\n Total Amount Tendered: \u20A6"+ tAmountTendered+"\n Total Remaining Bal: \u20A6"+ tRemAmount;
+
+  }
+  else if(tRemAmount <= 0){
+
+    document.getElementById('totalDisplay').classList.add('btn','btn-success','btn-sm','w-100','shadow')
+    document.getElementById('totalDisplay').innerText = "Accum. Total: \u20A6"+tAmount+
+    "\n Total Discount: \u20A6"+ tDiscount+
+    "\n Total After Discount: \u20A6"+ (tAmount - tDiscount)+
+    "\n Total Amount Tendered: \u20A6"+ tAmountTendered+"\n Total Remaining Bal: \u20A6"+ tRemAmount;
+    
+  }
+ 
 }
 
 
