@@ -51,12 +51,17 @@
          const rep_gender = urlParams.get('rep_gender');
 
          //document.getElementById("product_id").innerHTML = product_id;
+         
+         document.getElementById("rep_idH").value = rep_id;
+         document.getElementById("rep_nameH").value = rep_name;
          document.getElementById("rep_name").innerHTML = rep_name;
          document.getElementById("rep_email").innerHTML = 'Email : ' + rep_email;
          document.getElementById("rep_phone").innerHTML = 'Phone : ' + rep_phone;
          document.getElementById("rep_gender").innerHTML = 'Gender : ' + rep_gender;
          document.getElementById("rep_address").innerHTML = 'Address : ' + rep_address;
          document.getElementById("date_registered").innerHTML = 'Date Registered : ' + date_registered;
+
+         console.log(rep_id);
          
          //document.getElementById("product_brand").innerHTML = product_brand;
          //document.getElementById("product_cat").innerHTML = product_cat;
@@ -66,6 +71,8 @@
          //document.getElementById("unit_price").innerHTML = unit_price;
          //alert(id);
          }
+
+         
      
       </script>
 
@@ -76,10 +83,10 @@
          <div class="font-weight-normal mb-0 d-flex align-items-center">
             <h6 class="fw-normal mb-0 text-dark d-flex align-items-center">
                <a class="text-dark me-3 fs-4" href="javascript:javascript:history.go(-1)"><i class="bi bi-chevron-left"></i></a>
-               Rep Details
+               Sales Rep Details
             </h6>
             <div class="ms-auto d-flex align-items-center">
-               <a href="#" class="me-3 text-decoration-none text-dark text-uppercase">Reps Details</a>
+               <a href="#" class="me-3 text-decoration-none text-dark text-uppercase">Sales Rep Details</a>
                <a class="toggle osahan-toggle fs-4 text-dark ms-auto" href="#"><i class="bi bi-list"></i></a>
             </div>
          </div>
@@ -88,6 +95,8 @@
          <div class="text-center mb-4"><img src="img/listing/users.png" alt="#" class="col-12 img-fluid px-5"></div>
          <div class="text-center">
             <h4 id="rep_name"></h4>
+            <input type="hidden" id="rep_idH"/>
+            <input type="hidden" id="rep_nameH"/>
             <p class="text-muted" id="rep_email"></p>
             <p class="text-muted" id="rep_phone"></p>
             <p class="text-muted" id="rep_gender"></p>
@@ -100,7 +109,16 @@
                   <button class="btn btn-success btn-sm w-100 shadow">Edit Rep</button>
                </div>
                <div class="col-7">
-                  <button class="btn btn-success btn-sm w-100 shadow">View Activities</button>
+                  <button class="btn btn-success btn-sm w-100 shadow" id="viewActivities">View Activities</button>
+                  <script>
+
+                     let viewActivities = document.getElementById("viewActivities");
+                     viewActivities.addEventListener('click', (e)=>{
+                        window.open('reptransactionlist.html?rep_id='+document.getElementById("rep_idH").value+'&rep_name='+document.getElementById("rep_nameH").value, "_self");
+                     });
+
+
+                  </script>
                </div>
             </div>
          </div>
