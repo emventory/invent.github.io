@@ -57,7 +57,8 @@
         date_registered:todayDate(),
         status:1
     }).then(()=>{
-        alert("Rep Account Created Successfully");
+        alert("Sales Rep Account Created Successfully");
+        window.open('reptransactionlist.html?rep_id='+repid+'&rep_name='+repname, "_self");
     }).catch(()=>{
         alert("Error: Rep Not Successfully Added");
     });
