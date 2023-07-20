@@ -18,6 +18,19 @@
       <link rel="stylesheet" type="text/css" href="vendor/slick/slick.min.css" />
       <link rel="stylesheet" type="text/css" href="vendor/slick/slick-theme.min.css" />
 
+      <script language="javascript">
+         function printdiv() {
+             var headstr = "<html><head><title></title></head><body>";
+             var footstr = "</body>";
+             var newstr = document.getElementById("div_print").innerHTML;
+             var oldstr = document.body.innerHTML;
+             document.body.innerHTML = headstr + newstr + footstr;
+             window.print();
+             document.body.innerHTML = oldstr;
+             return false;
+         }
+     </script>
+
       <style>
          td,th,tr,table {
             border-top: 1px solid black;
@@ -48,6 +61,16 @@
             .hidden-print * {
             display: none !important;
             }
+
+            @page {
+           margin-top: 0;
+           margin-bottom: 0;
+          
+         }
+         #div_print  {
+           padding-top: 0px;
+           padding-bottom: 0px ;
+         }
          }
 
 
@@ -156,7 +179,7 @@ function AddItemToTable(qty,item,price){
                            
                         });
                   
-                  document.getElementById("totalValue").innerText = "\u20A6 "+total.toFixed(2);
+                  document.getElementById("totalValue").innerText = "Total: \u20A6 "+total.toFixed(2);
                   
               }
       
@@ -179,10 +202,10 @@ function AddItemToTable(qty,item,price){
                   
               }
       
-      
         
          var tid;
          function getTransactionId(){
+         localStorage.clear();
          const queryString = window.location.search;
          const urlParams = new URLSearchParams(queryString);
 
@@ -199,7 +222,6 @@ function AddItemToTable(qty,item,price){
 </script>
 
 <script>
-
          //window.onload = GetAllDataOnce;
 
          if(sessionStorage.getItem("key")  == null){
@@ -209,14 +231,12 @@ function AddItemToTable(qty,item,price){
       
          function logout(){
             sessionStorage.clear();
+            localStorage.clear();
             window.open("login.html", "_self");
          }
 
 
 </script>
-
-
-
 
    </head>
    <body class="bg-light">         
@@ -269,17 +289,15 @@ function AddItemToTable(qty,item,price){
             </div>
          </div>
 
-
-
          <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
    <div class="modal-dialog modal-dialog-centered modal-sm">
      <div class="modal-content">
-       <div class="modal-header">
+       <div class="modal-header hidden-print">
          <h5 class="modal-title" id="staticBackdropLabel">Transaction Receipt</h5>
          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
        </div>
-       <div class="modal-body">
+       <div class="modal-body" id="div_print">
          <div class="ticket">
             <h2 class="centered">Elfs Distributors</h2>
             <p class="centered">No. 5 Olu Obasanjo Road Diobu Port Harcort
@@ -300,8 +318,7 @@ function AddItemToTable(qty,item,price){
                   <tbody id="tbody2">
                    
                         <tr>
-                           <td colspan="2"  align="right" class="total">Total : </td>
-                           <td class="price"><small id="totalValue"></small></td>
+                           <td colspan="3" align="right" class="quantity" id="totalValue">Total : </td>
                         </tr>
                         <tr>
                            <td colspan="2"  align="right" class="discount">Discount : </td>
@@ -334,7 +351,7 @@ function AddItemToTable(qty,item,price){
         </div>
        </div>
        <div class="modal-footer">
-         <button id="btnPrint" type="button" class="btn btn-primary hidden-print">Print</button>
+         <button onClick="printdiv();" type="button" class="btn btn-primary hidden-print">Print</button>
          <button type="button" class="btn btn-secondary hidden-print" data-bs-dismiss="modal"  onclick="(function () { 
              
                //localStorage.clear();
@@ -342,8 +359,6 @@ function AddItemToTable(qty,item,price){
                //window.open('transactions.html', '_self');
          
       })()">Close</button>
-
-
 
          <script>
             
@@ -359,8 +374,6 @@ function AddItemToTable(qty,item,price){
      </div>
    </div>
  </div>
-
-
 
       </div>
       
@@ -425,7 +438,6 @@ function AddItemToTable(qty,item,price){
       <script type="text/javascript" src="vendor/sidebar/hc-offcanvas-nav.js"></script>
       
       <script src="js/custom.js"></script>
-
       
    <script src="../../cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="6b9f5a242c095c46a2040786-|49" defer></script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/v2b4487d741ca48dcbadcaf954e159fc61680799950996" integrity="sha512-D/jdE0CypeVxFadTejKGTzmwyV10c1pxZk/AqjJuZbaJwGMyNHY3q/mTPWqMUnFACfCTunhZUVcd4cV78dK1pQ==" data-cf-beacon='{"rayId":"7ba47d0bb9f8fa40","version":"2023.3.0","r":1,"b":1,"token":"dd471ab1978346bbb991feaa79e6ce5c","si":100}' crossorigin="anonymous"></script>
 </body>

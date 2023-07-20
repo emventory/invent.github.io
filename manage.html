@@ -21,6 +21,20 @@
       <link href="css/style.css" rel="stylesheet">
       
       <link href="vendor/sidebar/demo.css" rel="stylesheet">
+      <script>
+            
+            if(sessionStorage.getItem("key")  == null){
+               alert("Access Denied! Please Login");
+               window.open("login.html", "_self");
+             }
+             
+             function logout(){
+               sessionStorage.clear();
+               localStorage.clear();
+               window.open("login.html", "_self");
+            }
+            
+      </script>
    </head>
    <body class="bg-light">
       <div class="p-3 shadow-sm bg-warning danger-nav osahan-home-header sticky-top">

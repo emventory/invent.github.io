@@ -69,6 +69,19 @@
  
          
          //alert(id);
+
+
+         if(sessionStorage.getItem("key")  == null){
+               alert("Access Denied! Please Login");
+               window.open("login.html", "_self");
+             }
+             
+             function logout(){
+               sessionStorage.clear();
+               localStorage.clear();
+               window.open("login.html", "_self");
+            }
+
          }
      
       </script>

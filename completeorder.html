@@ -1,7 +1,6 @@
 <!doctype html>
 <html lang="en">
 
-<!-- Mirrored from askbootstrap.com/preview/karyana/support.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 19 Apr 2023 10:33:36 GMT -->
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -27,14 +26,15 @@
       <script type="text/javascript"> 
 
          if(sessionStorage.getItem("key")  == null){
-            alert("Access Denied! Please Login");
-            window.open("login.html", "_self");
-         }
-      
-         function logout(){
-            sessionStorage.clear();
-            window.open("login.html", "_self");
-         }
+               alert("Access Denied! Please Login");
+               window.open("login.html", "_self");
+             }
+             
+             function logout(){
+               sessionStorage.clear();
+               localStorage.clear();
+               window.open("login.html", "_self");
+            }
          
          function isNumberKey(txt, evt) {
            var charCode = (evt.which) ? evt.which : evt.keyCode;
