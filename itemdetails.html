@@ -60,6 +60,11 @@
          //document.getElementById("reorder_value").innerHTML = reorder_value;
          //document.getElementById("stock_value_in_hand").innerHTML = stock_value_in_hand;
          //document.getElementById("unit_price").innerHTML = unit_price;
+         document.getElementById("oldstockH").value = stock_qty;
+         document.getElementById("pIdH").value = product_id;
+         document.getElementById("pNameH").value = product_name;
+         
+         
          //alert(id);
          }
      
@@ -88,10 +93,13 @@
             <p class="text-muted" id="stock_qty"></p>
             <div class="d-flex justify-content-center gap-2">
                <div class="col-4">
-                  <input type="number" class="form-control form-control-sm text-center" placeholder="Enter">
+                  <input type="number" class="form-control form-control-sm text-center" id="restockValue" placeholder="Enter">
+                  <input type="hidden" id="oldstockH" />
+                  <input type="hidden" id="pIdH" />
+                  <input type="hidden" id="pNameH" />
                </div>
                <div class="col-4">
-                  <button class="btn btn-success btn-sm w-100 shadow">Restock</button>
+                  <button class="btn btn-success btn-sm w-100 shadow" id="restock">Restock</button>
                </div>
             </div>
          </div>
@@ -169,6 +177,7 @@
       <script type="text/javascript" src="vendor/sidebar/hc-offcanvas-nav.js"></script>
       
       <script src="js/custom.js"></script>
+      <script src="js/itemdetails.js" type="module"></script>
    <script src="../../cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="5588b3ea79d4c4e1141a40d7-|49" defer></script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/v2b4487d741ca48dcbadcaf954e159fc61680799950996" integrity="sha512-D/jdE0CypeVxFadTejKGTzmwyV10c1pxZk/AqjJuZbaJwGMyNHY3q/mTPWqMUnFACfCTunhZUVcd4cV78dK1pQ==" data-cf-beacon='{"rayId":"7ba47d15ab65d0d5","version":"2023.3.0","r":1,"b":1,"token":"dd471ab1978346bbb991feaa79e6ce5c","si":100}' crossorigin="anonymous"></script>
 </body>
 
