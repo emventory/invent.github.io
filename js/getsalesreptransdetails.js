@@ -34,6 +34,7 @@
     const rep_name = urlParams.get('rep_name');
 
     document.getElementById("repNameH6").innerText = rep_name;
+    document.getElementById("repNameH6").innerHTML += '\n <h6 class="text-success">Trans. History</h6>';
     document.getElementById("repId").value = rep_id;
     document.getElementById("repName").value = rep_name;
   
@@ -61,6 +62,7 @@
         //console.log(snapshot.val().name);
         } else {
           alert("Sorry! No Transaction(s) Yet For This Sales Rep");
+          window.history.go(-1);
         }
       }).catch((error) => {
         console.error(error);
@@ -153,11 +155,16 @@ function sendToDisplay(t_id, user_id, sales_rep_id, total_amount, total_items,
   let bi_houseItalics = document.createElement('i');
 	//bi_houseItalics.classList.add ('bi','bi-ui-checks-grid','text-success');
 
+  let fw_boldH6 = document.createElement('h6');
+	
+
   if(remaining_balance == 0){
     bi_houseItalics.classList.add ('bi','bi-ui-checks-grid','text-success');
+    fw_boldH6.classList.add ('mb-0','fw-bold','text-success');
   }
   else if(remaining_balance > 0){
     bi_houseItalics.classList.add ('bi','bi-ui-checks-grid','text-danger');
+    fw_boldH6.classList.add ('mb-0','fw-bold','text-danger');
   }
   //
   btn_outline_lightLabel.appendChild(bi_houseItalics);
@@ -165,8 +172,7 @@ function sendToDisplay(t_id, user_id, sales_rep_id, total_amount, total_items,
   let text_startSpan = document.createElement('span');
 	text_startSpan.classList.add ('text-start');
 
-  let fw_boldH6 = document.createElement('h6');
-	fw_boldH6.classList.add ('mb-0','fw-bold');
+  
 
   let h6Text = document.createTextNode("Transac. Amount: \u20A6"+ Intl.NumberFormat('en-US').format(total_amount));
   fw_boldH6.appendChild(h6Text);

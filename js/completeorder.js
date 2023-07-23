@@ -403,6 +403,13 @@ document.getElementById('confirmorder').addEventListener('click', (e)=>{
     }
     else{
 
+          var today = new Date();
+          var dd = String(today.getDate()).padStart(2, '0');
+          var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+          var yyyy = today.getFullYear();
+      
+          today = yyyy + '-' + mm + '-' + dd;
+
           const dates = new Date();
           var dateToString = dates.toString()
           var tid = md5(dateToString);
@@ -441,6 +448,7 @@ document.getElementById('confirmorder').addEventListener('click', (e)=>{
               unit_price:key.unit_price,
               total_amount:totalAmount,
               date:dateToString,
+              date_for_query:today,
               status:1
             });
 
@@ -471,6 +479,7 @@ document.getElementById('confirmorder').addEventListener('click', (e)=>{
             remaining_balance:remainingbalance,
             discount:discountValue,
             t_date:dateToString,
+            date_for_query:today,
             payment_status:paymentStatus,
             status:1
           }).then(()=>{
@@ -509,6 +518,14 @@ document.getElementById('confirmorder').addEventListener('click', (e)=>{
     }
     else{
 
+
+          var today = new Date();
+          var dd = String(today.getDate()).padStart(2, '0');
+          var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+          var yyyy = today.getFullYear();
+      
+          today = yyyy + '-' + mm + '-' + dd;
+
           const dates = new Date();
           var dateToString = dates.toString()
           var tid = md5(dateToString);
@@ -547,6 +564,7 @@ document.getElementById('confirmorder').addEventListener('click', (e)=>{
               unit_price:key.unit_price,
               total_amount:totalAmount,
               date:dateToString,
+              date_for_query:today,
               status:1
             });
 
@@ -577,6 +595,7 @@ document.getElementById('confirmorder').addEventListener('click', (e)=>{
             remaining_balance:remainingbalance,
             discount:discountValue,
             t_date:dateToString,
+            date_for_query:today,
             payment_status:paymentStatus,
             status:1
           }).then(()=>{
