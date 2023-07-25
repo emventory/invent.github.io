@@ -410,6 +410,19 @@ document.getElementById('confirmorder').addEventListener('click', (e)=>{
       
           today = yyyy + '-' + mm + '-' + dd;
 
+
+
+          var currentDate = new Date();
+          var startDate = new Date(currentDate.getFullYear(), 0, 1);
+          var days = Math.floor((currentDate - startDate) /
+            (24 * 60 * 60 * 1000));
+
+          var weekNumber = Math.ceil(days / 7);
+
+          // Display the calculated result	
+          console.log("Week number of " + currentDate +
+            " is : " + weekNumber);
+
           const dates = new Date();
           var dateToString = dates.toString()
           var tid = md5(dateToString);
@@ -437,6 +450,7 @@ document.getElementById('confirmorder').addEventListener('click', (e)=>{
             var totalAmount = key.unit_price*key.numberOfUnits;
             
               salesid = salesid.substr(0, 7)+md5(key.product_name).substr(0, 3);
+              var proId_date = key.product_id +"_"+ today;
 
             set(ref(db, 'sales/' + salesid), {
               t_id:tid,
@@ -449,6 +463,11 @@ document.getElementById('confirmorder').addEventListener('click', (e)=>{
               total_amount:totalAmount,
               date:dateToString,
               date_for_query:today,
+              day_for_query:dd,
+              month_for_query:mm,
+              year_for_query:yyyy,
+              week:weekNumber,
+              proId_date:proId_date,
               status:1
             });
 
@@ -467,7 +486,7 @@ document.getElementById('confirmorder').addEventListener('click', (e)=>{
     console.log(updateStock);
 
     console.log(numberOfItems);
-
+var proId_date = tid +"_"+ today;
           set(ref(db, 'transactions/' + tid), {
             t_id:tid,
             user_id:sessionStorage.getItem("key"),
@@ -480,6 +499,11 @@ document.getElementById('confirmorder').addEventListener('click', (e)=>{
             discount:discountValue,
             t_date:dateToString,
             date_for_query:today,
+            day_for_query:dd,
+            month_for_query:mm,
+            year_for_query:yyyy,
+            week:weekNumber,
+            proId_date:proId_date,
             payment_status:paymentStatus,
             status:1
           }).then(()=>{
@@ -526,6 +550,21 @@ document.getElementById('confirmorder').addEventListener('click', (e)=>{
       
           today = yyyy + '-' + mm + '-' + dd;
 
+          
+
+          ///////////Get Week - Start/////////////////////////////
+          var currentDate = new Date();
+          var startDate = new Date(currentDate.getFullYear(), 0, 1);
+          var days = Math.floor((currentDate - startDate) /
+            (24 * 60 * 60 * 1000));
+
+          var weekNumber = Math.ceil(days / 7);
+
+          // Display the calculated result	
+          console.log("Week number of " + currentDate +
+            " is : " + weekNumber);
+          ///////////Get Week - End///////////////////////////////
+
           const dates = new Date();
           var dateToString = dates.toString()
           var tid = md5(dateToString);
@@ -554,6 +593,8 @@ document.getElementById('confirmorder').addEventListener('click', (e)=>{
             
               salesid = salesid.substr(0, 7)+md5(key.product_name).substr(0, 3);
 
+              var proId_date = key.product_id +"_"+ today;
+
             set(ref(db, 'sales/' + salesid), {
               t_id:tid,
               user_id:sessionStorage.getItem("key"),
@@ -565,6 +606,11 @@ document.getElementById('confirmorder').addEventListener('click', (e)=>{
               total_amount:totalAmount,
               date:dateToString,
               date_for_query:today,
+              day_for_query:dd,
+              month_for_query:mm,
+              year_for_query:yyyy,
+              week:weekNumber,
+              proId_date:proId_date,
               status:1
             });
 
@@ -583,7 +629,7 @@ document.getElementById('confirmorder').addEventListener('click', (e)=>{
     console.log(updateStock);
 
     console.log(numberOfItems);
-
+    var proId_date = tid +"_"+ today;
           set(ref(db, 'transactions/' + tid), {
             t_id:tid,
             user_id:sessionStorage.getItem("key"),
@@ -596,6 +642,11 @@ document.getElementById('confirmorder').addEventListener('click', (e)=>{
             discount:discountValue,
             t_date:dateToString,
             date_for_query:today,
+            day_for_query:dd,
+            month_for_query:mm,
+            year_for_query:yyyy,
+            week:weekNumber,
+            proId_date:proId_date,
             payment_status:paymentStatus,
             status:1
           }).then(()=>{

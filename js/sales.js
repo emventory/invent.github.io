@@ -168,8 +168,13 @@
       
       });
     }
-    
+    //, {
+    //   onlyOnce: true
+    //}
     );
+
+
+  //});
 
 
 
@@ -177,75 +182,48 @@
 
   var stdNo = 0;
   var salesTBody = document.getElementById("salesTBody");
-  
-  
-  function AddItemToTable(productsid,productqty,proId_date,sum){
-    let trow = document.createElement("tr");
-    let td1 = document.createElement("td");
-    let td2 = document.createElement("td");
-
-    //console.log(proId_date) 
-    ///////////Get Item or product Quantity For a particular date from sales Node - Start///////////////////////////////
-    const QueryT = query(ref(db,"sales"), orderByChild("proId_date"),equalTo(proId_date));
-    var proID = 0;
-    var salesTemp = [];
-    get(QueryT)
-    .then((snapshot) =>{
-       
-        snapshot.forEach(childSnapshot => {
-
-          proID += childSnapshot.val().product_qty;
-          td2.innerHTML = proID;
-        });
-
+  var to = 0;
+  function AddItemToTable(productsid,productsname){
+      let trow = document.createElement("tr");
+      let td1 = document.createElement("td");
+      let td2 = document.createElement("td");
     
-    });
-///////////Get Item or product  Quantity For a particular date from sales Node - End///////////////////////////////
-    
-    var salesTemp = [];
+      const Query = query(ref(db,"sales"), orderByChild("product_id"),equalTo(productsid));
 
-///////////Get Item or product  Name For a particular date from stock Node - Start///////////////////////////////
-    const Query = query(ref(db,"stock"), orderByChild("product_id"),equalTo(productsid));
-    get(Query)
-    .then((snapshot) =>{
-      
-        snapshot.forEach(childSnapshot => {
-        
-          td1.innerHTML = childSnapshot.val().product_name;
-         
-          trow.appendChild(td1);
-          trow.appendChild(td2);
+      get(Query)
+      .then((snapshot) =>{
+          //var sales = [];
+  var sumcount = 0;
+          snapshot.forEach(childSnapshot => {
+            
+            sumcount += childSnapshot.val().product_qty;
 
+            if(sumcount > 0){
+                td1.innerHTML = productsname;
+                td2.innerHTML = sumcount;
+                trow.appendChild(td1);
+                trow.appendChild(td2);
+                
+            }
+            
+          });
+          //AddAllItemsToTable(sales);
+          to+=sumcount;
+              console.log(to); 
+              document.getElementById("totalSales").innerHTML = "TOTAL SALES TODAY = " +to+" ITEMS"; 
+      });
 
-          var proID = childSnapshot.val().product_id;
-          salesTemp.push(proID);
+      salesTBody.appendChild(trow);
 
-          console.log(proID);
+  }
 
-          if(salesTemp.includes(proID) == true){
-            //console.log(1);
-          }
-          else if(salesTemp.includes(proID) == false){
-            salesTemp.push(childSnapshot.val().product_id);
-          }
-
-
-        });
-    });
-    ///////////Get Item or product  Name For a particular date from stock Node - End///////////////////////////////
-    console.log(salesTemp);
-    document.getElementById("totalSales").innerHTML = "TOTAL SALES TODAY : " +sum;     
-    salesTBody.appendChild(trow);
-
-}
-
-  function AddAllItemsToTable(theStocks,sum){
+  function AddAllItemsToTable(theStocks){
     //theStocks.reverse();
       //stdNo = 0;
       salesTBody.innerHTML = "";
 
       theStocks.forEach(element => {
-          AddItemToTable(element.product_id,element.product_qty,element.proId_date,sum);
+          AddItemToTable(element.product_id,element.product_name);
       });
   }
 
@@ -260,47 +238,35 @@
     today = yyyy + '-' + mm + '-' + dd;
     console.log(today);
     const status = 1;
-    const Query = query(ref(db,"sales"), orderByChild("date_for_query"),equalTo(today));
-
-    var sales = [];
+    const Query = query(ref(db,"stock"), orderByChild("status"),equalTo(status));
 
     get(Query)
     .then((snapshot) =>{
-       
-        var sum = 0;
+        var stock = [];
+
         snapshot.forEach(childSnapshot => {
-
-          console.log(childSnapshot.val().product_id);
-          console.log(childSnapshot.val().product_qty);
-
-          sum += (childSnapshot.val().product_qty);
-            sales.push(childSnapshot.val());
-          
+          stock.push(childSnapshot.val());
         });
-        console.log(sales);
-        ///////////// Filters Out or Remove Duplicate Values from array of Sales objects - Start////////////////////
-
-        const pids = sales.map(({ product_id }) => product_id);
-        const filtered = sales.filter(({ product_id }, index) => !pids.includes(product_id, index + 1));
-
-        ///////////// Filters Out or Remove Duplicate Values from array of objects - End//////////////////// 
-        console.log(filtered);
-
-          AddAllItemsToTable(filtered,sum);
-
+        AddAllItemsToTable(stock);
     });
-
-}
-
-//window.onload = GetAllDataOnce;
-
-window.onload = function(){
-  document.getElementById("tsa-today-tab").click();
+    
 }
 
 
-document.getElementById("tsa-today-tab").addEventListener("click", GetAllDataOnce);
+// function GetAllDataRealtime(){
+//     const dbRef = ref(db,"StudentsList");
+//     onValue(dbRef,(snapshot =>{
+//         var students = [];
 
+//         snapshot.forEach(childSnapshot => {
+//             students.push(childSnapshot.val());
+//         });
+//         AddAllItemsToTable(students);
 
+//     }));
+    
+// }
+
+window.onload = GetAllDataOnce;
 
   
