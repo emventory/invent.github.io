@@ -451,6 +451,8 @@ document.getElementById('confirmorder').addEventListener('click', (e)=>{
             
               salesid = salesid.substr(0, 7)+md5(key.product_name).substr(0, 3);
               var proId_date = key.product_id +"_"+ today;
+              var proId_week = key.product_id +"_"+ weekNumber;
+              var proId_month = key.product_id +"_"+ mm;
 
             set(ref(db, 'sales/' + salesid), {
               t_id:tid,
@@ -468,6 +470,8 @@ document.getElementById('confirmorder').addEventListener('click', (e)=>{
               year_for_query:yyyy,
               week:weekNumber,
               proId_date:proId_date,
+              proId_week:proId_week,
+              proId_month:proId_month,
               status:1
             });
 
@@ -482,31 +486,36 @@ document.getElementById('confirmorder').addEventListener('click', (e)=>{
         //document.getElementById("cumAmount").value = grandTotal.toFixed(2);
             console.log(subTotal);
     });
-    console.log(grandTotal);
-    console.log(updateStock);
+      console.log(grandTotal);
+      console.log(updateStock);
 
-    console.log(numberOfItems);
-var proId_date = tid +"_"+ today;
-          set(ref(db, 'transactions/' + tid), {
-            t_id:tid,
-            user_id:sessionStorage.getItem("key"),
-            sales_rep_id:selectsalesrep,
-            mode_of_pay:paymentType,
-            total_items:numberOfItems,
-            total_amount:grandTotal.toFixed(2),
-            amount_tendered:amtTendered.toFixed(2),
-            remaining_balance:remainingbalance,
-            discount:discountValue,
-            t_date:dateToString,
-            date_for_query:today,
-            day_for_query:dd,
-            month_for_query:mm,
-            year_for_query:yyyy,
-            week:weekNumber,
-            proId_date:proId_date,
-            payment_status:paymentStatus,
-            status:1
-          }).then(()=>{
+      console.log(numberOfItems);
+      var proId_date = tid +"_"+ today;
+      var proId_week = tid +"_"+ weekNumber;
+      var proId_month = tid +"_"+ mm;
+  
+            set(ref(db, 'transactions/' + tid), {
+              t_id:tid,
+              user_id:sessionStorage.getItem("key"),
+              sales_rep_id:selectsalesrep,
+              mode_of_pay:paymentType,
+              total_items:numberOfItems,
+              total_amount:grandTotal.toFixed(2),
+              amount_tendered:amtTendered.toFixed(2),
+              remaining_balance:remainingbalance,
+              discount:discountValue,
+              t_date:dateToString,
+              date_for_query:today,
+              day_for_query:dd,
+              month_for_query:mm,
+              year_for_query:yyyy,
+              week:weekNumber,
+              proId_date:proId_date,
+              proId_week:proId_week,
+              proId_month:proId_month,
+              payment_status:paymentStatus,
+              status:1
+            }).then(()=>{
 ///////////////////////////update////////////////////////////////////////////////
             update(ref(db), updateStock).then(()=>{
               alert("Your Order was Confirmed Successfully!");
@@ -594,6 +603,8 @@ var proId_date = tid +"_"+ today;
               salesid = salesid.substr(0, 7)+md5(key.product_name).substr(0, 3);
 
               var proId_date = key.product_id +"_"+ today;
+              var proId_week = key.product_id +"_"+ weekNumber;
+              var proId_month = key.product_id +"_"+ mm;
 
             set(ref(db, 'sales/' + salesid), {
               t_id:tid,
@@ -611,6 +622,8 @@ var proId_date = tid +"_"+ today;
               year_for_query:yyyy,
               week:weekNumber,
               proId_date:proId_date,
+              proId_week:proId_week,
+              proId_month:proId_month,
               status:1
             });
 
@@ -630,6 +643,9 @@ var proId_date = tid +"_"+ today;
 
     console.log(numberOfItems);
     var proId_date = tid +"_"+ today;
+    var proId_week = tid +"_"+ weekNumber;
+    var proId_month = tid +"_"+ mm;
+
           set(ref(db, 'transactions/' + tid), {
             t_id:tid,
             user_id:sessionStorage.getItem("key"),
@@ -647,6 +663,8 @@ var proId_date = tid +"_"+ today;
             year_for_query:yyyy,
             week:weekNumber,
             proId_date:proId_date,
+            proId_week:proId_week,
+            proId_month:proId_month,
             payment_status:paymentStatus,
             status:1
           }).then(()=>{
