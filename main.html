@@ -72,6 +72,7 @@
             <div class="osahan-gift d-flex gap-3 align-items-center bg-white shadow-sm rounded mb-3 overflow-hidden p-3">
               
                <div>
+                  <p class="text-dark-50"><i class="bi bi-stack"></i> <em>All Sales</em><a href="newtransaction.html" class="btn btn-success btn-sm shadow float-end"><i class="bi bi-arrow-up-right-square"></i> Advance </a></p>
                   <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                     <li class="nav-item" role="presentation">
                       <button class="nav-link active" id="tsa-today-tab" data-bs-toggle="pill" data-bs-target="#tsa-today" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Today</button>
@@ -99,7 +100,7 @@
                                           <th width=70%>Products</th>
                                           <th width=30%>Total Sold</th></tr>
                                     </thead>
-                                    <tbody id="salesTBody">
+                                    <tbody id="salesTBodyDay">
                                     </tbody>
                                  </table>
                                </div>
@@ -109,7 +110,9 @@
                          </div>
                                
                       
-                       <span class="text-dark-50 l-hght-18 fw-bold" id="totalSales"></span>
+                           <span class="text-dark-50 l-hght-18 fw-bold">TOTAL SALES TODAY</span>
+                           <h6 class="mb-0 fw-bold text-success l-hght-18" id="totalSalesDay"></h6>
+                           <span class="text-dark-50 small">DAILY</span>
                       </div>
                     </div>
 
@@ -128,7 +131,7 @@
                                           <th width=70%>Products</th>
                                           <th width=30%>Total Sold</th></tr>
                                     </thead>
-                                    <tbody id="salesTBody">
+                                    <tbody id="salesTBodyWeek">
                                     </tbody>
                                  </table>
                                </div>
@@ -138,18 +141,41 @@
                          </div>
                               
                      
-                      <span class="text-dark-50 l-hght-18 fw-bold" id="totalSales"></span>
-                      <h6 class="mb-0 fw-bold text-success l-hght-18">Earn 20%</h6>
-                       <span class="text-dark-50 small">TOTAL SALES AMOUNT</span>
+                           <span class="text-dark-50 l-hght-18 fw-bold">TOTAL SALES THE WEEK</span>
+                           <h6 class="mb-0 fw-bold text-success l-hght-18" id="totalSalesWeek"></h6>
+                           <span class="text-dark-50 small">WEEKLY</span>
                      </div>
                    </div>
 
                     
                     <div class="tab-pane fade" id="tsa-month" role="tabpanel" aria-labelledby="tsa-month-tab">
-                      <div>
-                       <h6 class="mb-0 fw-bold text-success l-hght-18">Earn 20%</h6>
-                       <span class="text-dark-50 small">TOTAL SALES AMOUNT</span>
-                      </div>
+                     <div>
+                      
+                        <div class="page-body">
+                           <div class="container-fluid h-25">
+                             <div class="row">
+                         
+                              <div class="overflow-auto" style="height:250px;">
+                                 <table class="table table-bordered table-hover border-primary">
+                                    <thead class="sticky-top bg-white">
+                                       <tr>
+                                          <th width=70%>Products</th>
+                                          <th width=30%>Total Sold</th></tr>
+                                    </thead>
+                                    <tbody id="salesTBodyMonth">
+                                    </tbody>
+                                 </table>
+                               </div>
+                               
+                             </div>
+                           </div>
+                         </div>
+                              
+                     
+                           <span class="text-dark-50 l-hght-18 fw-bold">TOTAL SALES THE MONTH</span>
+                           <h6 class="mb-0 fw-bold text-success l-hght-18" id="totalSalesMonth"></h6>
+                           <span class="text-dark-50 small">MONTHLY</span>
+                     </div>
                     </div>
                     
                   </div>
@@ -170,7 +196,7 @@
       </div>
       
       
-      <div class="fixed-bottom shadow-sm osahan-footer p-3">
+      <div class="shadow-sm osahan-footer p-3">
          <div class="row m-0 footer-menu overflow-hiddem bg-black rounded shadow links">
             <div class="col-3 p-0 text-center">
                <a class="p-2 d-inline-block text-white w-100" href="main.html">
@@ -233,19 +259,19 @@
       
          <ul class="bottom-nav">
             <li class="email">
-               <a class="text-success nav-item text-center" href="home.html" tabindex="0" role="menuitem">
+               <a class="text-success nav-item text-center" href="main.html" tabindex="0" role="menuitem">
                   <p class="h5 m-0"><i class="icofont-ui-home text-success"></i></p>
                   Home
                </a>
             </li>
             <li class="github">
-               <a href="gift-card.html" class="nav-item text-center" tabindex="0" role="menuitem">
-                  <p class="h5 m-0"><i class="icofont-sale-discount"></i></p>
-                  Offer
+               <a href="notice.html" class="nav-item text-center" tabindex="0" role="menuitem">
+                  <p class="h5 m-0"><i class="bi bi-megaphone-fill"></i></p>
+                  Notice
                </a>
             </li>
             <li class="ko-fi">
-               <a href="support.html" class="nav-item text-center" tabindex="0" role="menuitem">
+               <a href="help.html" class="nav-item text-center" tabindex="0" role="menuitem">
                   <p class="h5 m-0"><i class="icofont-support-faq"></i></p>
                   Help
                </a>

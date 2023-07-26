@@ -59,7 +59,8 @@
             <h6 class="fw-normal mb-0 text-dark d-flex align-items-center">
                <a class="text-dark me-3 fs-4" href="main.html"><i class="bi bi-house"></i></a>
                Dashboard
-            </h6>            <div class="ms-auto d-flex align-items-center">
+            </h6>            
+            <div class="ms-auto d-flex align-items-center">
                <a href="newtransaction.html" class="me-3 text-dark fs-5"><i class="bi bi-basket"></i></a>
                <a class="toggle osahan-toggle fs-4 text-dark ms-auto" href="#"><i class="bi bi-list"></i></a>
             </div>
@@ -68,73 +69,240 @@
       <div class="osahan-giftcard p-3">
          
          
-            <div class="osahan-gift d-flex gap-3 align-items-center bg-white shadow-sm rounded mb-3 overflow-hidden p-3">
-              
-               <div>
-                  <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                    <li class="nav-item" role="presentation">
-                      <button class="nav-link active" id="tsa-today-tab" data-bs-toggle="pill" data-bs-target="#tsa-today" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Today</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                      <button class="nav-link " id="tsa-week-tab" data-bs-toggle="pill" data-bs-target="#tsa-week" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Week</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                      <button class="nav-link" id="tsa-month-tab" data-bs-toggle="pill" data-bs-target="#tsa-month" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Month</button>
-                    </li>
-                  </ul>
-                  <div class="tab-content" id="pills-tabContent">
-                  
-                    <div class="tab-pane fade show active" id="tsa-today" role="tabpanel" aria-labelledby="tsa-today-tab">
-                      <div>
-                       
-                        <div class="page-body">
-                           <div class="container-fluid h-25">
-                             <div class="row">
-                         
-                              <div class="overflow-auto" style="height:250px;">
-                                 <table class="table table-bordered table-hover border-primary">
-                                    <thead class="sticky-top bg-white">
-                                       <tr>
-                                          <th width=70%>Products</th>
-                                          <th width=30%>Total Sold</th></tr>
-                                    </thead>
-                                    <tbody id="salesTBody">
-                                    </tbody>
-                                 </table>
-                               </div>
-                               
-                             </div>
-                           </div>
-                         </div>
-                               
+         <div class="osahan-gift d-flex gap-3 align-items-center bg-white shadow-sm rounded mb-3 overflow-hidden p-3">
+           
+            <div>
+               <p class="text-dark-50"><i class="bi bi-stack"></i> <em>All Sales</em><a href="newtransaction.html" class="btn btn-success btn-sm shadow float-end"><i class="bi bi-arrow-up-right-square"></i> Advance </a></p>
+               <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                 <li class="nav-item" role="presentation">
+                   <button class="nav-link active" id="tsa-today-tab" data-bs-toggle="pill" data-bs-target="#tsa-today" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Today</button>
+                 </li>
+                 <li class="nav-item" role="presentation">
+                   <button class="nav-link " id="tsa-week-tab" data-bs-toggle="pill" data-bs-target="#tsa-week" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Week</button>
+                 </li>
+                 <li class="nav-item" role="presentation">
+                   <button class="nav-link" id="tsa-month-tab" data-bs-toggle="pill" data-bs-target="#tsa-month" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Month</button>
+                 </li>
+               </ul>
+               <div class="tab-content" id="pills-tabContent">
+               
+                 <div class="tab-pane fade show active" id="tsa-today" role="tabpanel" aria-labelledby="tsa-today-tab">
+                   <div>
+                    
+                     <div class="page-body">
+                        <div class="container-fluid h-25">
+                          <div class="row">
                       
-                       <span class="text-dark-50 h6" id="totalSales"></span>
+                           <div class="overflow-auto" style="height:250px;">
+                              <table class="table table-bordered table-hover border-primary">
+                                 <thead class="sticky-top bg-white">
+                                    <tr>
+                                       <th width=70%>Products</th>
+                                       <th width=30%>Total Sold</th></tr>
+                                 </thead>
+                                 <tbody id="salesTBodyDay">
+                                 </tbody>
+                              </table>
+                            </div>
+                            
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                    
-                    <div class="tab-pane fade" id="tsa-week" role="tabpanel" aria-labelledby="tsa-week-tab">
-                      <div>
-                       <h6 class="mb-0 fw-bold text-success l-hght-18">Earn 20%</h6>
-                       <span class="text-dark-50 small">TOTAL SALES AMOUNT</span>
+                            
+                   
+                        <span class="text-dark-50 l-hght-18 fw-bold">TOTAL SALES TODAY</span>
+                        <h6 class="mb-0 fw-bold text-success l-hght-18" id="totalSalesDay"></h6>
+                        <span class="text-dark-50 small">DAILY</span>
+                   </div>
+                 </div>
+
+
+                 <div class="tab-pane fade" id="tsa-week" role="tabpanel" aria-labelledby="tsa-week-tab">
+                  <div>
+                   
+                     <div class="page-body">
+                        <div class="container-fluid h-25">
+                          <div class="row">
+                      
+                           <div class="overflow-auto" style="height:250px;">
+                              <table class="table table-bordered table-hover border-primary">
+                                 <thead class="sticky-top bg-white">
+                                    <tr>
+                                       <th width=70%>Products</th>
+                                       <th width=30%>Total Sold</th></tr>
+                                 </thead>
+                                 <tbody id="salesTBodyWeek">
+                                 </tbody>
+                              </table>
+                            </div>
+                            
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                    
-                    <div class="tab-pane fade" id="tsa-month" role="tabpanel" aria-labelledby="tsa-month-tab">
-                      <div>
-                       <h6 class="mb-0 fw-bold text-success l-hght-18">Earn 20%</h6>
-                       <span class="text-dark-50 small">TOTAL SALES AMOUNT</span>
-                      </div>
-                    </div>
-                    
-                  </div>
+                           
                   
+                        <span class="text-dark-50 l-hght-18 fw-bold">TOTAL SALES THE WEEK</span>
+                        <h6 class="mb-0 fw-bold text-success l-hght-18" id="totalSalesWeek"></h6>
+                        <span class="text-dark-50 small">WEEKLY</span>
+                  </div>
+                </div>
+
+                 
+                 <div class="tab-pane fade" id="tsa-month" role="tabpanel" aria-labelledby="tsa-month-tab">
+                  <div>
+                   
+                     <div class="page-body">
+                        <div class="container-fluid h-25">
+                          <div class="row">
+                      
+                           <div class="overflow-auto" style="height:250px;">
+                              <table class="table table-bordered table-hover border-primary">
+                                 <thead class="sticky-top bg-white">
+                                    <tr>
+                                       <th width=70%>Products</th>
+                                       <th width=30%>Total Sold</th></tr>
+                                 </thead>
+                                 <tbody id="salesTBodyMonth">
+                                 </tbody>
+                              </table>
+                            </div>
+                            
+                          </div>
+                        </div>
+                      </div>
+                           
+                  
+                        <span class="text-dark-50 l-hght-18 fw-bold">TOTAL SALES THE MONTH</span>
+                        <h6 class="mb-0 fw-bold text-success l-hght-18" id="totalSalesMonth"></h6>
+                        <span class="text-dark-50 small">MONTHLY</span>
+                  </div>
+                 </div>
+                 
                </div>
                
             </div>
-         
-      </div>
+            
+         </div>
+
+
+         <div class="osahan-gift d-flex gap-3 align-items-center bg-white shadow-sm rounded mb-3 overflow-hidden p-3">
+           
+            <div>
+               <p class="text-dark-50"><i class="bi bi-stack"></i> <em>Sales By Products</em><a href="newtransaction.html" class="btn btn-success btn-sm shadow float-end"><i class="bi bi-arrow-up-right-square"></i> Advance </a></p>
+               <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                 <li class="nav-item" role="presentation">
+                   <button class="nav-link active" id="tsa-today-tab" data-bs-toggle="pill" data-bs-target="#tsa-today" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Today</button>
+                 </li>
+                 <li class="nav-item" role="presentation">
+                   <button class="nav-link " id="tsa-week-tab" data-bs-toggle="pill" data-bs-target="#tsa-week" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Week</button>
+                 </li>
+                 <li class="nav-item" role="presentation">
+                   <button class="nav-link" id="tsa-month-tab" data-bs-toggle="pill" data-bs-target="#tsa-month" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Month</button>
+                 </li>
+               </ul>
+               <div class="tab-content" id="pills-tabContent">
+               
+                 <div class="tab-pane fade show active" id="tsa-today" role="tabpanel" aria-labelledby="tsa-today-tab">
+                   <div>
+                    
+                     <div class="page-body">
+                        <div class="container-fluid h-25">
+                          <div class="row">
+                      
+                           <div class="overflow-auto" style="height:250px;">
+                              <table class="table table-bordered table-hover border-primary">
+                                 <thead class="sticky-top bg-white">
+                                    <tr>
+                                       <th width=70%>Products</th>
+                                       <th width=30%>Total Sold</th></tr>
+                                 </thead>
+                                 <tbody id="salesTBodyDay">
+                                 </tbody>
+                              </table>
+                            </div>
+                            
+                          </div>
+                        </div>
+                      </div>
+                            
+                   
+                        <span class="text-dark-50 l-hght-18 fw-bold">TOTAL SALES TODAY</span>
+                        <h6 class="mb-0 fw-bold text-success l-hght-18" id="totalSalesDay"></h6>
+                        <span class="text-dark-50 small">DAILY</span>
+                   </div>
+                 </div>
+
+
+                 <div class="tab-pane fade" id="tsa-week" role="tabpanel" aria-labelledby="tsa-week-tab">
+                  <div>
+                   
+                     <div class="page-body">
+                        <div class="container-fluid h-25">
+                          <div class="row">
+                      
+                           <div class="overflow-auto" style="height:250px;">
+                              <table class="table table-bordered table-hover border-primary">
+                                 <thead class="sticky-top bg-white">
+                                    <tr>
+                                       <th width=70%>Products</th>
+                                       <th width=30%>Total Sold</th></tr>
+                                 </thead>
+                                 <tbody id="salesTBodyWeek">
+                                 </tbody>
+                              </table>
+                            </div>
+                            
+                          </div>
+                        </div>
+                      </div>
+                           
+                  
+                        <span class="text-dark-50 l-hght-18 fw-bold">TOTAL SALES THE WEEK</span>
+                        <h6 class="mb-0 fw-bold text-success l-hght-18" id="totalSalesWeek"></h6>
+                        <span class="text-dark-50 small">WEEKLY</span>
+                  </div>
+                </div>
+
+                 
+                 <div class="tab-pane fade" id="tsa-month" role="tabpanel" aria-labelledby="tsa-month-tab">
+                  <div>
+                   
+                     <div class="page-body">
+                        <div class="container-fluid h-25">
+                          <div class="row">
+                      
+                           <div class="overflow-auto" style="height:250px;">
+                              <table class="table table-bordered table-hover border-primary">
+                                 <thead class="sticky-top bg-white">
+                                    <tr>
+                                       <th width=70%>Products</th>
+                                       <th width=30%>Total Sold</th></tr>
+                                 </thead>
+                                 <tbody id="salesTBodyMonth">
+                                 </tbody>
+                              </table>
+                            </div>
+                            
+                          </div>
+                        </div>
+                      </div>
+                           
+                  
+                        <span class="text-dark-50 l-hght-18 fw-bold">TOTAL SALES THE MONTH</span>
+                        <h6 class="mb-0 fw-bold text-success l-hght-18" id="totalSalesMonth"></h6>
+                        <span class="text-dark-50 small">MONTHLY</span>
+                  </div>
+                 </div>
+                 
+               </div>
+               
+            </div>
+            
+         </div>
       
-      <div class="fixed-bottom shadow-sm osahan-footer p-3">
+   </div>
+      
+      <div class=" shadow-sm osahan-footer p-3">
          <div class="row m-0 footer-menu overflow-hiddem bg-black rounded shadow links">
             <div class="col-3 p-0 text-center">
                <a class="p-2 d-inline-block text-white w-100" href="main.html">
@@ -192,24 +360,21 @@
             <li><a href="settings.html"><i class="bi bi-gear me-2"></i> Settings</a></li>
             <li><a href="#" onClick="logout()"><i class="bi bi-power me-2"></i> Sign Out</a></li>
          
-         </ul>
-
-      
-         <ul class="bottom-nav">
+         </ul>         <ul class="bottom-nav">
             <li class="email">
-               <a class="text-success nav-item text-center" href="home.html" tabindex="0" role="menuitem">
+               <a class="text-success nav-item text-center" href="main.html" tabindex="0" role="menuitem">
                   <p class="h5 m-0"><i class="icofont-ui-home text-success"></i></p>
                   Home
                </a>
             </li>
             <li class="github">
-               <a href="gift-card.html" class="nav-item text-center" tabindex="0" role="menuitem">
-                  <p class="h5 m-0"><i class="icofont-sale-discount"></i></p>
-                  Offer
+               <a href="notice.html" class="nav-item text-center" tabindex="0" role="menuitem">
+                  <p class="h5 m-0"><i class="bi bi-megaphone-fill"></i></p>
+                  Notice
                </a>
             </li>
             <li class="ko-fi">
-               <a href="support.html" class="nav-item text-center" tabindex="0" role="menuitem">
+               <a href="help.html" class="nav-item text-center" tabindex="0" role="menuitem">
                   <p class="h5 m-0"><i class="icofont-support-faq"></i></p>
                   Help
                </a>
