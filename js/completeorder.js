@@ -454,6 +454,8 @@ document.getElementById('confirmorder').addEventListener('click', (e)=>{
               var proId_week = key.product_id +"_"+ weekNumber;
               var proId_month = key.product_id +"_"+ mm;
 
+              console.log(key.product_company);
+
             set(ref(db, 'sales/' + salesid), {
               t_id:tid,
               user_id:sessionStorage.getItem("key"),
@@ -463,6 +465,7 @@ document.getElementById('confirmorder').addEventListener('click', (e)=>{
               product_qty:key.numberOfUnits,
               unit_price:key.unit_price,
               total_amount:totalAmount,
+              product_company:key.product_company,
               date:dateToString,
               date_for_query:today,
               day_for_query:dd,
@@ -615,6 +618,7 @@ document.getElementById('confirmorder').addEventListener('click', (e)=>{
               product_qty:key.numberOfUnits,
               unit_price:key.unit_price,
               total_amount:totalAmount,
+              product_company:key.product_company,
               date:dateToString,
               date_for_query:today,
               day_for_query:dd,
