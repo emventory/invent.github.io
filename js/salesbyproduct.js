@@ -31,14 +31,14 @@ var stdNo = 0;
 var salesTBodyDayMan = document.getElementById("salesTBodyDayMan");
 
 
-function AddItemToTableDay(product_company,productqty,proId_date,sum){
+function AddItemToTableDayMan(pCompany_day,product_company,productqty,proId_date,sum){
   let trow = document.createElement("tr");
   let td1 = document.createElement("td");
   let td2 = document.createElement("td");
-
+console.log(proId_date);
   console.log(productqty+"dsd") 
   ///////////Get Item or product Quantity For a particular date from sales Node - Start///////////////////////////////
-  const QueryT = query(ref(db,"sales"), orderByChild("product_company"),equalTo(product_company));
+  const QueryT = query(ref(db,"sales"), orderByChild("pCompany_day"),equalTo(pCompany_day));
   var proID = 0;
   var salesTemp = [];
   get(QueryT)
@@ -46,10 +46,17 @@ function AddItemToTableDay(product_company,productqty,proId_date,sum){
      
       snapshot.forEach(childSnapshot => {
 
-        proID += childSnapshot.val().product_qty;
-        td2.innerHTML = proID;
 
-        console.log("ddd"+proID)
+        //if(proId_date == childSnapshot.val().proId_date){
+          console.log(childSnapshot.val().proId_date);
+proID += childSnapshot.val().product_qty;
+        console.log("ddd"+proID);
+        td2.innerHTML = proID;
+        //}
+
+
+        
+        
       });
 
   
@@ -72,13 +79,13 @@ function AddItemToTableDay(product_company,productqty,proId_date,sum){
 
 }
 
-function AddAllItemsToTableDay(theStocks,sum){
+function AddAllItemsToTableDayMan(theStocks,sum){
   //theStocks.reverse();
     //stdNo = 0;
     salesTBodyDayMan.innerHTML = "";
 
     theStocks.forEach(element => {
-        AddItemToTableDay(element.product_company,element.product_qty,element.proId_date,sum);
+        AddItemToTableDayMan(element.pCompany_day,element.product_company,element.product_qty,element.proId_date,sum);
     });
 }
 
@@ -119,7 +126,7 @@ function GetAllDataOnceDayMan(){
       ///////////// Filters Out or Remove Duplicate Values from array of objects - End//////////////////// 
       console.log(filtered);
 
-        AddAllItemsToTableDay(filtered,sum);
+      AddAllItemsToTableDayMan(filtered,sum);
 
   });
 
@@ -130,17 +137,17 @@ function GetAllDataOnceDayMan(){
 
 ////////////////////////////////////////////////////////////////Weekly Sales - Start ///////////////////////////////////////
 
-var salesTBodyWeek = document.getElementById("salesTBodyWeek");
+var salesTBodyWeekMan = document.getElementById("salesTBodyWeekMan");
 
 
-function AddItemToTableWeek(productsid,productqty,proId_week,sum){
+function AddItemToTableWeekMan(pCompany_week,product_company,productqty,proId_week,sum){
 let trow = document.createElement("tr");
 let td1 = document.createElement("td");
 let td2 = document.createElement("td");
 
 //console.log(proId_date) 
 ///////////Get Item or product Quantity For a particular date from sales Node - Start///////////////////////////////
-const QueryT = query(ref(db,"sales"), orderByChild("proId_week"),equalTo(proId_week));
+const QueryT = query(ref(db,"sales"), orderByChild("pCompany_week"),equalTo(pCompany_week));
 var proID = 0;
 var salesTemp = [];
 get(QueryT)
@@ -156,55 +163,34 @@ get(QueryT)
 });
 ///////////Get Item or product  Quantity For a particular date from sales Node - End///////////////////////////////
 
-var salesTemp = [];
-
 ///////////Get Item or product  Name For a particular date from stock Node - Start///////////////////////////////
-const Query = query(ref(db,"stock"), orderByChild("product_id"),equalTo(productsid));
-get(Query)
-.then((snapshot) =>{
-  
-    snapshot.forEach(childSnapshot => {
+
     
-      td1.innerHTML = childSnapshot.val().product_name;
+      td1.innerHTML = product_company;
      
       trow.appendChild(td1);
       trow.appendChild(td2);
 
 
-      var proID = childSnapshot.val().product_id;
-      salesTemp.push(proID);
-
-      console.log(proID);
-
-      if(salesTemp.includes(proID) == true){
-        //console.log(1);
-      }
-      else if(salesTemp.includes(proID) == false){
-        salesTemp.push(childSnapshot.val().product_id);
-      }
-
-
-    });
-});
 ///////////Get Item or product  Name For a particular date from stock Node - End///////////////////////////////
 console.log(salesTemp);
-document.getElementById("totalSalesWeek").innerHTML = sum;     
-salesTBodyWeek.appendChild(trow);
+document.getElementById("totalSalesWeekMan").innerHTML = sum;     
+salesTBodyWeekMan.appendChild(trow);
 
 }
 
-function AddAllItemsToTableWeek(theStocks,sum){
+function AddAllItemsToTableWeekMan(theStocks,sum){
 //theStocks.reverse();
   //stdNo = 0;
-  salesTBodyWeek.innerHTML = "";
+  salesTBodyWeekMan.innerHTML = "";
 
   theStocks.forEach(element => {
-      AddItemToTableWeek(element.product_id,element.product_qty,element.proId_week,sum);
+      AddItemToTableWeekMan(element.pCompany_week,element.product_company,element.product_qty,element.proId_week,sum);
   });
 }
 
 
-function GetAllDataOnceWeek(){
+function GetAllDataOnceWeekMan(){
 
 var today = new Date();
 var dd = String(today.getDate()).padStart(2, '0');
@@ -242,13 +228,13 @@ get(Query)
     console.log(sales);
     ///////////// Filters Out or Remove Duplicate Values from array of Sales objects - Start////////////////////
 
-    const pids = sales.map(({ product_id }) => product_id);
-    const filtered = sales.filter(({ product_id }, index) => !pids.includes(product_id, index + 1));
+    const pids = sales.map(({ product_company }) => product_company);
+    const filtered = sales.filter(({ product_company }, index) => !pids.includes(product_company, index + 1));
 
     ///////////// Filters Out or Remove Duplicate Values from array of objects - End//////////////////// 
     console.log(filtered);
 
-      AddAllItemsToTableWeek(filtered,sum);
+      AddAllItemsToTableWeekMan(filtered,sum);
 
 });
 
@@ -259,17 +245,17 @@ get(Query)
 
 ////////////////////////////////////////////////////////////////Monthly Sales - Start ///////////////////////////////////////
 
-var salesTBodyMonth = document.getElementById("salesTBodyMonth");
+var salesTBodyMonthMan = document.getElementById("salesTBodyMonthMan");
 
 
-function AddItemToTableMonth(productsid,productqty,proId_month,sum){
+function AddItemToTableMonthMan(pCompany_month,product_company,productqty,proId_month,sum){
 let trow = document.createElement("tr");
 let td1 = document.createElement("td");
 let td2 = document.createElement("td");
 
 //console.log(proId_date) 
 ///////////Get Item or product Quantity For a particular date from sales Node - Start///////////////////////////////
-const QueryT = query(ref(db,"sales"), orderByChild("proId_month"),equalTo(proId_month));
+const QueryT = query(ref(db,"sales"), orderByChild("pCompany_month"),equalTo(pCompany_month));
 var proID = 0;
 var salesTemp = [];
 get(QueryT)
@@ -288,52 +274,32 @@ get(QueryT)
 var salesTemp = [];
 
 ///////////Get Item or product  Name For a particular date from stock Node - Start///////////////////////////////
-const Query = query(ref(db,"stock"), orderByChild("product_id"),equalTo(productsid));
-get(Query)
-.then((snapshot) =>{
-  
-    snapshot.forEach(childSnapshot => {
-    
-      td1.innerHTML = childSnapshot.val().product_name;
+
+      td1.innerHTML = product_company;
      
       trow.appendChild(td1);
       trow.appendChild(td2);
 
 
-      var proID = childSnapshot.val().product_id;
-      salesTemp.push(proID);
-
-      console.log(proID);
-
-      if(salesTemp.includes(proID) == true){
-        //console.log(1);
-      }
-      else if(salesTemp.includes(proID) == false){
-        salesTemp.push(childSnapshot.val().product_id);
-      }
-
-
-    });
-});
 ///////////Get Item or product  Name For a particular date from stock Node - End///////////////////////////////
 console.log(salesTemp);
-document.getElementById("totalSalesMonth").innerHTML = sum;     
-salesTBodyMonth.appendChild(trow);
+document.getElementById("totalSalesMonthMan").innerHTML = sum;     
+salesTBodyMonthMan.appendChild(trow);
 
 }
 
-function AddAllItemsToTableMonth(theStocks,sum){
+function AddAllItemsToTableMonthMan(theStocks,sum){
 //theStocks.reverse();
   //stdNo = 0;
-  salesTBodyMonth.innerHTML = "";
+  salesTBodyMonthMan.innerHTML = "";
 
   theStocks.forEach(element => {
-      AddItemToTableMonth(element.product_id,element.product_qty,element.proId_month,sum);
+      AddItemToTableMonthMan(element.pCompany_month,element.product_company,element.product_qty,element.proId_month,sum);
   });
 }
 
 
-function GetAllDataOnceMonth(){
+function GetAllDataOnceMonthMan(){
 
 var today = new Date();
 var dd = String(today.getDate()).padStart(2, '0');
@@ -371,13 +337,13 @@ get(Query)
     console.log(sales);
     ///////////// Filters Out or Remove Duplicate Values from array of Sales objects - Start////////////////////
 
-    const pids = sales.map(({ product_id }) => product_id);
-    const filtered = sales.filter(({ product_id }, index) => !pids.includes(product_id, index + 1));
+    const pids = sales.map(({ product_company }) => product_company);
+    const filtered = sales.filter(({ product_company }, index) => !pids.includes(product_company, index + 1));
 
     ///////////// Filters Out or Remove Duplicate Values from array of objects - End//////////////////// 
     console.log(filtered);
 
-      AddAllItemsToTableMonth(filtered,sum);
+      AddAllItemsToTableMonthMan(filtered,sum);
 
 });
 
@@ -395,8 +361,8 @@ document.getElementById("tsa-today-tab-man").click();
 
 
 document.getElementById("tsa-today-tab-man").addEventListener("click", GetAllDataOnceDayMan);
-document.getElementById("tsa-week-tab").addEventListener("click", GetAllDataOnceWeek);
-document.getElementById("tsa-month-tab").addEventListener("click", GetAllDataOnceMonth);
+document.getElementById("tsa-week-tab-man").addEventListener("click", GetAllDataOnceWeekMan);
+document.getElementById("tsa-month-tab-man").addEventListener("click", GetAllDataOnceMonthMan);
 
 
 

@@ -454,6 +454,10 @@ document.getElementById('confirmorder').addEventListener('click', (e)=>{
               var proId_week = key.product_id +"_"+ weekNumber;
               var proId_month = key.product_id +"_"+ mm;
 
+              var pCompany_day = key.product_company +"_"+ today;
+              var pCompany_week = key.product_company +"_"+ weekNumber;
+              var pCompany_month = key.product_company +"_"+ mm;
+
               console.log(key.product_company);
 
             set(ref(db, 'sales/' + salesid), {
@@ -475,6 +479,10 @@ document.getElementById('confirmorder').addEventListener('click', (e)=>{
               proId_date:proId_date,
               proId_week:proId_week,
               proId_month:proId_month,
+              pCompany_day:pCompany_day,
+              pCompany_week:pCompany_week,
+              pCompany_month:pCompany_month,
+
               status:1
             });
 
@@ -609,6 +617,10 @@ document.getElementById('confirmorder').addEventListener('click', (e)=>{
               var proId_week = key.product_id +"_"+ weekNumber;
               var proId_month = key.product_id +"_"+ mm;
 
+              var pCompany_day = key.product_company +"_"+ today;
+              var pCompany_week = key.product_company +"_"+ weekNumber;
+              var pCompany_month = key.product_company +"_"+ mm;
+
             set(ref(db, 'sales/' + salesid), {
               t_id:tid,
               user_id:sessionStorage.getItem("key"),
@@ -628,6 +640,9 @@ document.getElementById('confirmorder').addEventListener('click', (e)=>{
               proId_date:proId_date,
               proId_week:proId_week,
               proId_month:proId_month,
+              pCompany_day:pCompany_day,
+              pCompany_week:pCompany_week,
+              pCompany_month:pCompany_month,
               status:1
             });
 
