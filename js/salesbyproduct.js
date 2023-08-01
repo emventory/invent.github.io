@@ -120,8 +120,8 @@ function GetAllDataOnceDayMan(){
       console.log(sales);
       ///////////// Filters Out or Remove Duplicate Values from array of Sales objects - Start////////////////////
 
-      const pids = sales.map(({ product_company }) => product_company);
-      const filtered = sales.filter(({ product_company }, index) => !pids.includes(product_company, index + 1));
+      const pids = sales.map(({ product_comp_id }) => product_comp_id);
+      const filtered = sales.filter(({ product_comp_id }, index) => !pids.includes(product_comp_id, index + 1));
 
       ///////////// Filters Out or Remove Duplicate Values from array of objects - End//////////////////// 
       console.log(filtered);
@@ -228,8 +228,8 @@ get(Query)
     console.log(sales);
     ///////////// Filters Out or Remove Duplicate Values from array of Sales objects - Start////////////////////
 
-    const pids = sales.map(({ product_company }) => product_company);
-    const filtered = sales.filter(({ product_company }, index) => !pids.includes(product_company, index + 1));
+    const pids = sales.map(({ product_comp_id }) => product_comp_id);
+    const filtered = sales.filter(({ product_comp_id }, index) => !pids.includes(product_comp_id, index + 1));
 
     ///////////// Filters Out or Remove Duplicate Values from array of objects - End//////////////////// 
     console.log(filtered);
@@ -337,8 +337,8 @@ get(Query)
     console.log(sales);
     ///////////// Filters Out or Remove Duplicate Values from array of Sales objects - Start////////////////////
 
-    const pids = sales.map(({ product_company }) => product_company);
-    const filtered = sales.filter(({ product_company }, index) => !pids.includes(product_company, index + 1));
+    const pids = sales.map(({ product_comp_id }) => product_comp_id);
+    const filtered = sales.filter(({ product_comp_id }, index) => !pids.includes(product_comp_id, index + 1));
 
     ///////////// Filters Out or Remove Duplicate Values from array of objects - End//////////////////// 
     console.log(filtered);

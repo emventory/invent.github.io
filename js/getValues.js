@@ -26,7 +26,7 @@
   const db = getDatabase();
 
 
-  function writeUserData(producttitle,selectcategory,selectcompany,selectcontainer
+  function writeUserData(producttitle,selectcategory,selectcompany,compid,selectcontainer
     ,qtysupplied,supplyprice,productdescr) {
 
         const dates = new Date();
@@ -41,6 +41,7 @@
         product_name:producttitle,
         product_cat:selectcategory,
         product_company:selectcompany,
+        product_comp_id:compid,
         product_container:selectcontainer,
         stock_qty:qtysupplied,
         unit_price:supplyprice,
@@ -102,8 +103,23 @@
 
       //console.log(snapshot.val().name);
       } else {
+
+        const QueryTr = query(ref(db,"company"), orderByChild("comp_name"),equalTo(selectcompany));
+        var compid;
+        get(QueryTr)
+        .then((snapshot) =>{
+          
+            snapshot.forEach(childSnapshot => {
+
+              compid = childSnapshot.val().comp_id;
+              console.log(compid);
+
+            writeUserData(producttitle,selectcategory,selectcompany,compid,selectcontainer,qtysupplied,supplyprice,productdescr);
+            });
+
+
+        });
         
-            writeUserData(producttitle,selectcategory,selectcompany,selectcontainer,qtysupplied,supplyprice,productdescr);
             
       }
     }).catch((error) => {
