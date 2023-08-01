@@ -103,19 +103,6 @@
 
       //console.log(snapshot.val().name);
       } else {
-        
-
-  //       var surname  = document.getElementById("surname").value;
-  // var middlename  = document.getElementById("middlename").value;
-  // var lastname  = document.getElementById("lastname").value;
-  // var email  = document.getElementById("email").value;
-  // var phone  = document.getElementById("phone").value;
-  // var gender  = document.getElementById("gender").value;
-  // var selectstate  = document.getElementById("selectstate").value;
-  // var lga  = document.getElementById("lga").value;
-  // var userlevel  = document.getElementById("userlevel").value;
-  // var passwords  = document.getElementById("passwords").value;
-  // var resaddress  = document.getElementById("resaddress").value;
 
         writeUserData(repname,repphone,repemail,repgender,resaddress);
             
@@ -130,62 +117,6 @@
 
 });
   
-
-
-///////////////////Starts Get Brand//////////////////////////////////////////////
-  //function getBrand(){
-
-//     var status = 1;
-//     const que = query(ref(db,'brand'),orderByChild('status'),equalTo(status));
-
-//     get(que).then((snapshot) => {
-//       if (snapshot.exists()) {
-
-//         var brands = [];
-
-//         snapshot.forEach(function (childSnapshot) {
-
-//           brands.push(childSnapshot.val());
-
-//       });
-
-//       addBrandToSelect(brands);
-
-//       //console.log(snapshot.val().name);
-//       } else {
-//         alert("Error: No Item(s) already added to the inventory");
-//       }
-//     }).catch((error) => {
-//       console.error(error);
-//     });
-  
-                          
-// }
-
-// window.onload = getBrand();
-
-// function  addBrandToSelect(brands){
-//   brands.forEach(element => {
-
-//   sendToBrandSelect(element.brand_id, element.brand_name, element.brand_descr, element.brand_company);
-
-// });
-// }
-
-
-// var selectbrand = document.getElementById('selectbrand');
-
-// var radioId = 1;
-
-// function sendToBrandSelect(brand_id, brand_name, brand_descr, brand_company){
-
-// var option = document.createElement("option");
-// option.value = brand_name;
-// option.text = brand_name;
-// selectbrand.appendChild(option);
-
-// }
-////////////////////////////////////Ends Get Brand///////////////////////
 
 
 
