@@ -35,43 +35,180 @@
     const selectcompany = urlParams.get('selectcompany');
     const rangefrom = urlParams.get('rangefrom');
     const rangeto = urlParams.get('rangeto');
+    console.log(selectsalesrep);
 
     // document.getElementById("repNameH6").innerText = rep_name;
     // document.getElementById("repNameH6").innerHTML += '\n <h6 class="text-success">Trans. History</h6>';
     // document.getElementById("repId").value = rep_id;
     // document.getElementById("repName").value = rep_name;
-  
-  
-    //console.log(selectsalesrep +" "+ selectcompany +" "+ rangefrom +" "+ rangeto);
 
-  //document.getElementById("repIdHidden").value = rep_id;
+
+    var saleRepName = "";
+    const queGetSalesRepName = query(ref(db,'salesrep'),orderByChild('rep_id'),equalTo(selectsalesrep));
+
+    get(queGetSalesRepName).then((snapshott) => {
+      
+  
+        snapshott.forEach(function (childSnapshott) {
+
+            saleRepName = childSnapshott.val().rep_name;
+            //console.log("ewre");
+            //document.getElementById("h6ToTitle").innerText = saleRepName;
+            document.getElementById("repNames").innerText = "Sales Rep: "+saleRepName;
+
+            document.getElementById("h6ToTitle").parentNode.insertBefore( document.createTextNode(saleRepName), document.getElementById("h6ToTitle").nextSibling );
+
+        }); 
+  
+      
+    }).catch((error) => {
+      console.error(error);
+    });
+
+    document.getElementById("h5SummaryTitle").innerText = "Company : "+selectcompany;
+    document.getElementById("divSummaryPeriod").innerText = "Date Range: "+rangefrom +" to "+rangeto;
+    
+    
     
       var status = 1;
-     // console.log(rep_id);
       
-      const que = query(ref(db,'sales'),orderByChild('date_for_query'),startAt(rangefrom),endAt(rangeto));
+      const que = query(ref(db,'sales'),orderByChild('sales_rep_id'),equalTo(selectsalesrep));
 
-      get(que).then((snapshot) => {
-        if (snapshot.exists()) {
+      var companyArray = [];
+
+      get(que).then((snapshotF) => {
+        if (snapshotF.exists()) {
 
           var transactions = [];
 
-          snapshot.forEach(function (childSnapshot) {
+          snapshotF.forEach(function (childSnapshotF) {
 
-            //transactions.push(childSnapshot.val());
-            //console.log(childSnapshot.val().product_company);
+            //transactions.push(childSnapshotF.val());
+            //console.log(childSnapshotF.val().product_company);
 
-            if(childSnapshot.val().product_company == selectcompany){
-                console.log(childSnapshot.val().product_id);
+            if(childSnapshotF.val().product_company == selectcompany){
+                //console.log(childSnapshotF.val().product_company);
+
+                companyArray.push(childSnapshotF.val());
+
+      
             }
 
         });
+            const pcompids = companyArray.map(({ product_comp_id }) => product_comp_id);
+            const filtered = companyArray.filter(({ product_comp_id }, index) => !pcompids.includes(product_comp_id, index + 1));
 
-        addTransactionsForDisplay(transactions);
+            //console.log(filtered);
+            //getCompanyForSearch(transactions,selectsalesrep,selectcompany,rangefrom,rangeto);
 
-        //console.log(snapshot.val().name);
+
+            filtered.forEach(element => {
+                //console.log(element.product_comp_id);
+                //console.log(selectcompany);
+
+                ////////////////////////////////////////////44444//////////////////////////////////////////////
+                
+                const que = query(ref(db,'sales'),orderByChild('date_for_query'),startAt(rangefrom),endAt(rangeto));
+
+                // console.log(que);
+                var productArray = [];
+                get(que).then((snapshot) => {
+                  
+                    snapshot.forEach(function (childSnapshot) {
+
+            
+                        if(childSnapshot.val().product_comp_id == element.product_comp_id && childSnapshot.val().sales_rep_id == selectsalesrep){
+                            
+
+                            productArray.push(childSnapshot.val());
+
+
+                        }
+            
+                    });
+
+                    const pids = productArray.map(({ product_id }) => product_id);
+                    const filteredProID = productArray.filter(({ product_id }, index) => !pids.includes(product_id, index + 1));
+
+
+                    filteredProID.forEach(element => {
+
+                            ///////////////////////////////////////rrrr/////////////////////////////////////////
+                            var sum = 0;
+                            
+                            const que = query(ref(db,'sales'),orderByChild('date_for_query'),startAt(rangefrom),endAt(rangeto));
+
+                            // console.log(que);
+                        
+                            get(que).then((snapshots) => {
+                              
+                                snapshots.forEach(function (childSnapshots) {
+                                    var productsIds = childSnapshots.val().product_id;
+                                    
+                                        //console.log(childSnapshot.val().product_id);
+                                        if(childSnapshots.val().product_company == selectcompany && 
+                                        childSnapshots.val().sales_rep_id == selectsalesrep && element.product_id == productsIds){
+                                            sum +=  childSnapshots.val().product_qty;
+                                        }
+                                       
+                        
+                                });
+
+
+                                //Work Here
+                                console.log(element.product_id+ " : " +sum);
+                                var pnames = "";
+
+                                const queGetProductName = query(ref(db,'stock'),orderByChild('product_id'),equalTo(element.product_id));
+
+                                get(queGetProductName).then((snapshotgpn) => {
+                                  if (snapshotgpn.exists()) {
+                              
+                                    snapshotgpn.forEach(function (childSnapshotgpn) {
+                              
+                                        pnames = childSnapshotgpn.val().product_name;
+
+                                        document.getElementById("summarylisting").innerHTML += `
+                                
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                            <div class="mb-1 text-dark fw-bold">${pnames}</div>
+                                            </div>
+                                            <div class="text-success free fw-bold">${sum}</div>
+                                        </div>
+                                        <hr class="text-success">
+                                        `;
+                              
+                                  });
+                              
+                                  } else {
+                                  }
+                                }).catch((error) => {
+                                  console.error(error);
+                                });
+
+
+
+
+
+                            }).catch((error) => {
+                              console.error(error);
+                            });
+
+                            ////////////////////////////////////rrrr///////////////////////////////////////////
+
+                    });
+
+                }).catch((error) => {
+                  console.error(error);
+                });
+
+                ////////////////////////////////////////44444/////////////////////////////////////////////////
+
+            });
+
         } else {
-          alert("Sorry! No Transaction(s) Yet For This Sales Rep");
+          alert("Sorry! No Transaction(s) Yet");
           window.history.go(-1);
         }
       }).catch((error) => {

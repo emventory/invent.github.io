@@ -46,16 +46,12 @@ console.log(proId_date);
      
       snapshot.forEach(childSnapshot => {
 
-
-        //if(proId_date == childSnapshot.val().proId_date){
-          console.log(childSnapshot.val().proId_date);
-proID += childSnapshot.val().product_qty;
-        console.log("ddd"+proID);
-        td2.innerHTML = proID;
-        //}
-
-
-        
+          //if(proId_date == childSnapshot.val().proId_date){
+          //console.log(childSnapshot.val().proId_date);
+          proID += childSnapshot.val().product_qty;
+          //console.log("ddd"+proID);
+          td2.innerHTML = proID;
+          //}
         
       });
 
