@@ -1,12 +1,163 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Untitled Document</title>
-</head>
+<!doctype html>
+<html lang="en">
 
-<body>
-<script src="js/custom.js"></script>
-<script src="js/searchresult.js" type="module"></script>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content>
+<meta name="author" content>
+<link rel="icon" type="image/png" href="img/brand.png">
+<title>eMVentory - Sale and Inventory Manager</title>
+      
+      <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+      
+      <link href="vendor/icons/icofont.min.css" rel="stylesheet" type="text/css">
+      
+      <link rel="stylesheet" href="font/bootstrap-icons.css">
+      
+      <link rel="stylesheet" type="text/css" href="vendor/slick/slick.min.css" />
+      <link rel="stylesheet" type="text/css" href="vendor/slick/slick-theme.min.css" />
+      
+      <link href="css/style.css" rel="stylesheet">
+      
+      <link href="vendor/sidebar/demo.css" rel="stylesheet">
+      <script src="js/md5.js" type="text/javascript"></script>
+
+      <script type="text/javascript"> 
+
+         if(sessionStorage.getItem("key")  == null){
+               alert("Access Denied! Please Login");
+               window.open("login.html", "_self");
+             }
+             
+             function logout(){
+               sessionStorage.clear();
+               localStorage.clear();
+               window.open("login.html", "_self");
+            }
+         
+         function isNumberKey(txt, evt) {
+           var charCode = (evt.which) ? evt.which : evt.keyCode;
+           if (charCode == 46) {
+             //Check if the text already contains the . character
+             if (txt.value.indexOf('.') === -1) {
+               return true;
+             } else {
+               return false;
+             }
+           } else {
+             if (charCode > 31 &&
+               (charCode < 48 || charCode > 57))
+               return false;
+           }
+           return true;
+         }
+        
+
+       </script>
+   </head>
+   <body class="bg-light pb-5 mb-5">
+      <div class="p-3 shadow-sm bg-warning danger-nav osahan-home-header sticky-top">
+         <div class="font-weight-normal mb-0 d-flex align-items-center">
+            <h6 class="fw-normal mb-0 text-dark d-flex align-items-center" id="h6ToTitle">
+               <a class="text-dark me-3 fs-4" href="javascript:javascript:history.go(-1)" id="chevronA"><i class="bi bi-chevron-left"></i></a>
+               </h6>
+            <div class="ms-auto d-flex align-items-center">
+               <a href="#" class="me-3 text-decoration-none text-dark text-uppercase">Summary</a>
+               <a class="toggle osahan-toggle fs-4 text-dark ms-auto" href="#"><i class="bi bi-list"></i></a>
+            </div>
+         </div>
+      </div>
+      
+        <div class="bg-white shadow-sm mb-4 p-3">
+            <h6 class="mb-3 text-black fw-bold" id="h5SummaryTitle"></h6>
+            <div class="text-danger fw-bold" id="divSummaryPeriod"></div>
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <div class="text-success" id="repNames"></div>
+            </div>
+        
+        </div>
+
+        <div class="bg-white shadow-sm mb-4 p-3"> 
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <div class="text-muted fw-bold h4">Summary Details <i class="bi bi-file-earmark-bar-graph"></i></div>
+            </div>
+         <hr class="my-3">
+         <div class="d-flex justify-content-between align-items-center">
+            <div>
+            <div class="mb-1 text-dark fw-bold h6"> <i class="bi bi-box2"></i> Products</div>
+            </div>
+            <div class="text-success free fw-bold h6"> <i class="bi bi-stack"></i> Quantity</div>
+        </div>
+        <hr class="text-success">
+         <div id="summarylisting"></div>
+
+      </div>
+      
+      <div class="osahan-footer fixed-bottom p-3">
+         <a href="#" class="btn btn-success btn-lg w-100 shadow">Print</a>
+      </div>
+      
+      <nav id="main-nav">
+         <ul>
+            <li>
+               <a href="#" class="bg-success sidebar-user d-flex align-items-center py-4 px-3 border-0 mb-0">
+                  <img src="img/profile.png" class="img-fluid me-3">
+                  <div class="text-white">
+                     <h6 class="mb-0">eMVentory</h6>
+                     <small>emcodinstech@gmail.com</small><br>
+                     <span class="f-10 text-white-50">Version 1.00</span>    
+                  </div>
+               </a>
+            </li>
+            <li>
+               <a href="sales.html"><i class="bi bi-bar-chart-line me-2"></i> Sales</a>
+            </li>
+            <li>
+               <a href="stock.html"><i class="bi bi-file-break me-2"></i> Stock Inventory</a>
+            </li>
+            <li>
+               <a href="transactions.html"><i class="bi bi-ui-checks-grid me-2"></i> Transactions</a>
+            </li>
+            <li>
+               <a href="salesreps.html"><i class="bi bi-person-lines-fill me-2"></i> Sales Reps</a>
+            </li>
+            <li><a href="manage.html"><i class="bi bi-person-bounding-box me-2"></i> Manage</a></li>
+            <li><a href="settings.html"><i class="bi bi-gear me-2"></i> Settings</a></li>
+            <li><a href="#" onClick="logout()"><i class="bi bi-power me-2"></i> Sign Out</a></li>
+         
+         </ul>         <ul class="bottom-nav">
+            <li class="email">
+               <a class="text-success nav-item text-center" href="main.html" tabindex="0" role="menuitem">
+                  <p class="h5 m-0"><i class="icofont-ui-home text-success"></i></p>
+                  Home
+               </a>
+            </li>
+            <li class="github">
+               <a href="notice.html" class="nav-item text-center" tabindex="0" role="menuitem">
+                  <p class="h5 m-0"><i class="bi bi-megaphone-fill"></i></p>
+                  Notice
+               </a>
+            </li>
+            <li class="ko-fi">
+               <a href="help.html" class="nav-item text-center" tabindex="0" role="menuitem">
+                  <p class="h5 m-0"><i class="icofont-support-faq"></i></p>
+                  Help
+               </a>
+            </li>
+         </ul>
+      </nav>
+      
+      <script src="vendor/jquery/jquery.min.js"></script>
+      <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+      
+      <script type="text/javascript" src="vendor/slick/slick.min.js"></script>
+      
+      <script type="text/javascript" src="vendor/sidebar/hc-offcanvas-nav.js"></script>
+      
+      <script src="js/custom.js"></script>
+      <script src="js/searchresult.js" type="module"></script>
+   <script src="../../cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="2c3543aee98ffa71c5612b1f-|49" defer></script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/v2b4487d741ca48dcbadcaf954e159fc61680799950996" integrity="sha512-D/jdE0CypeVxFadTejKGTzmwyV10c1pxZk/AqjJuZbaJwGMyNHY3q/mTPWqMUnFACfCTunhZUVcd4cV78dK1pQ==" data-cf-beacon='{"rayId":"7ba47d07b8b4fa40","version":"2023.3.0","r":1,"b":1,"token":"dd471ab1978346bbb991feaa79e6ce5c","si":100}' crossorigin="anonymous"></script>
 </body>
+
 </html>
