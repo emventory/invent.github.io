@@ -65,9 +65,10 @@
           snapshot.forEach(function (childSnapshot) {
 
             var value = childSnapshot.val();
+            var u_level = childSnapshot.val().u_level;
 
             sessionStorage.setItem("key", loginkey);
-            //sessionStorage.setItem("userid", loginkey);
+            sessionStorage.setItem("u_level", u_level);
 
             window.open("main.html", "_self");
 

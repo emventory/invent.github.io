@@ -44,6 +44,9 @@
 
     //var mainContainer = document.getElementById("stocklist");
 	  
+
+
+
 		let osahan_listing = document.getElementById('osahan_listing');
 		let bobo = document.getElementById('bobo');
 			
